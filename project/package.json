@@ -1,0 +1,10 @@
+﻿{
+  "name": "smart-market-watchlist",
+  "version": "1.0.0",
+  "description": "Evidence-first Smart Market Watchlist",
+  "scripts": {
+    "dev": "node run.js",
+    "start": "node run.js",
+    "server": "node run.js"
+  }
+}

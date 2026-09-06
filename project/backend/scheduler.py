@@ -18,6 +18,13 @@ def cycle():
         except Exception as error: print(f"refresh failed for {symbol}: {error}")
     print(f"refreshed {successes}/{len(symbols)} active securities")
 
+def news_cycle():
+    """Run independently (for example hourly) when NEWS_PROVIDER is configured."""
+    store.init(); c=store.con(); symbols=[r['symbol'] for r in c.execute("SELECT DISTINCT symbol FROM watch_entries WHERE expires_at IS NULL OR expires_at > ?",(store.now(),)).fetchall()]; c.close()
+    for symbol in symbols:
+        try: pipeline.ingest_news(symbol)
+        except Exception as error: print(f"news ingestion failed for {symbol}: {error}")
+
 if __name__ == '__main__':
     parser=argparse.ArgumentParser(); parser.add_argument('--once',action='store_true'); args=parser.parse_args()
     while True:

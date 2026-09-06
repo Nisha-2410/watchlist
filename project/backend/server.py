@@ -157,16 +157,26 @@ class Handler(SimpleHTTPRequestHandler):
         c=store.con(); rows=c.execute("SELECT s.*, w.watch_type, w.mute FROM watch_entries w JOIN securities s ON s.symbol=w.symbol WHERE w.user_id=? AND (w.expires_at IS NULL OR w.expires_at > ?)",(uid,store.now())).fetchall()
         preferences=c.execute("SELECT price,volume,news,earnings,corporate_actions FROM preferences WHERE user_id=?",(uid,)).fetchone()
         muted_categories={r['category'] for r in c.execute("SELECT category FROM muted_categories WHERE user_id=?",(uid,)).fetchall()}
+        symbols=[r['symbol'] for r in rows]
+        if symbols:
+            placeholders=','.join('?' for _ in symbols)
+            insights={r['symbol']:r for r in c.execute(f"SELECT * FROM derived_insights WHERE symbol IN ({placeholders})",symbols).fetchall()}
+            keys=[f"{symbol}:{insight['computed_at']}" for symbol,insight in insights.items()]
+            reviewed={r['event_key'] for r in c.execute(f"SELECT event_key FROM acknowledgements WHERE user_id=? AND event_key IN ({','.join('?' for _ in keys)})",[uid,*keys]).fetchall()} if keys else set()
+            categories={symbol:set() for symbol in symbols}
+            for event in c.execute(f"SELECT symbol,category,timestamp FROM market_events WHERE symbol IN ({placeholders})",symbols).fetchall():
+                insight=insights.get(event['symbol'])
+                if not insight or event['timestamp'] >= insight['computed_at']: categories[event['symbol']].add(event['category'])
+        else: insights={}; reviewed=set(); categories={}
         stocks=[]
         for r in rows:
-            i=c.execute("SELECT * FROM derived_insights WHERE symbol=?",(r['symbol'],)).fetchone(); signal=json.loads(i['signals_json']) if i else {}
-            key=f"{r['symbol']}:{i['computed_at']}" if i else None; reviewed=bool(key and c.execute("SELECT 1 FROM acknowledgements WHERE user_id=? AND event_key=?",(uid,key)).fetchone())
-            categories={e['category'] for e in c.execute("SELECT category FROM market_events WHERE symbol=? AND timestamp>=?",(r['symbol'],i['computed_at'] if i else '')).fetchall()}
+            i=insights.get(r['symbol']); signal=json.loads(i['signals_json']) if i else {}
+            key=f"{r['symbol']}:{i['computed_at']}" if i else None; is_reviewed=bool(key and key in reviewed)
             preference_rank=(i['rank_score'] if i else 0)
             if preferences and not preferences['volume']: preference_rank-=max(0,signal.get('volumeRatio',1)-1)
             if preferences and not preferences['price']: preference_rank-=abs(signal.get('absoluteMove',0))
-            de_emphasized=bool(r['mute']) or bool(categories & muted_categories)
-            stocks.append({'symbol':r['symbol'],'name':r['name'],'exchange':r['exchange'],'sector':r['sector'],'tier':i['tier'] if i else 'Normal','confidence':i['confidence'] if i else 'Low','freshness':i['freshness'] if i else 'Awaiting provider refresh','watchType':r['watch_type'],'price':i['current_price'] if i else None,'move':signal.get('absoluteMove',0),'relative':signal.get('relativeMove',0),'volume':signal.get('volumeRatio',0),'evidence':json.loads(i['evidence_json']) if i else ['No provider snapshot is available yet'],'insightKey':key,'reviewed':reviewed,'rankScore':preference_rank,'deEmphasized':de_emphasized,'computedAt':i['computed_at'] if i else None})
+            de_emphasized=bool(r['mute']) or bool(categories.get(r['symbol'],set()) & muted_categories)
+            stocks.append({'symbol':r['symbol'],'name':r['name'],'exchange':r['exchange'],'sector':r['sector'],'tier':i['tier'] if i else 'Normal','confidence':i['confidence'] if i else 'Low','freshness':i['freshness'] if i else 'Awaiting provider refresh','watchType':r['watch_type'],'price':i['current_price'] if i else None,'move':signal.get('absoluteMove',0),'relative':signal.get('relativeMove',0),'volume':signal.get('volumeRatio',0),'evidence':json.loads(i['evidence_json']) if i else ['No provider snapshot is available yet'],'insightKey':key,'reviewed':is_reviewed,'rankScore':preference_rank,'deEmphasized':de_emphasized,'computedAt':i['computed_at'] if i else None})
         pulse={x:sum(s['tier']==x.title() for s in stocks) for x in ('significant','notable','normal')}
         order={'Significant':0,'Notable':1,'Normal':2}; catch=[s for s in stocks if not s['reviewed'] and not s['deEmphasized'] and s['tier']!='Normal'];catch.sort(key=lambda s:(order[s['tier']],-s['rankScore'],s['computedAt'] or ''))
         sectors={}
@@ -180,5 +190,5 @@ class Handler(SimpleHTTPRequestHandler):
 
 if __name__ == "__main__":
     store.init()
-    print("Smart Market Watchlist at http://localhost:8000 (set DEMO_MODE=false for the Yahoo provider)")
+    print("Smart Market Watchlist at http://localhost:8000 (set DATA_MODE=live and QUOTE_PROVIDER=yahoo for live quotes)")
     ThreadingHTTPServer(("127.0.0.1", 8000), Handler).serve_forever()
