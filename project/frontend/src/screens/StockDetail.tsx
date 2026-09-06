@@ -64,7 +64,10 @@ export function StockDetailScreen({ symbol, onNeedAuth }: { symbol: string; onNe
 
   const move = detail.comparison?.percentageDifference;
   const insight = detail.insight;
-  const contextPartial = detail.context.peers.some((p) => p.freshness === "Missing") || detail.context.benchmarkMove == null;
+  const displayedPrice = insight?.current_price ?? detail.comparison?.currentPrice;
+  // Missing peer context is normal before the first watch refresh; do not present it
+  // as a provider failure while the initial insight is still being prepared.
+  const contextPartial = Boolean(insight) && (detail.context.peers.some((p) => p.freshness === "Missing") || detail.context.benchmarkMove == null);
 
   const threadEventIds = new Set((timeline?.threads ?? []).flatMap((t) => t.events.map((e) => e.id)));
   const standalone = (timeline?.events ?? []).filter((e) => !threadEventIds.has(e.id));
@@ -117,7 +120,7 @@ export function StockDetailScreen({ symbol, onNeedAuth }: { symbol: string; onNe
             {insight ? <div className="mt-space-xs"><FreshnessLabel freshness={insight.freshness} /></div> : null}
           </div>
           <div className="flex flex-col lg:items-end">
-            <span className="font-data-metric text-data-metric text-text-primary tabular-nums">{insight?.current_price != null ? insight.current_price.toFixed(2) : "—"}</span>
+            <span className="font-data-metric text-data-metric text-text-primary tabular-nums">{displayedPrice != null ? displayedPrice.toFixed(2) : "—"}</span>
             {move != null ? (
               <span className={`font-data-delta text-data-delta ${move < 0 ? "text-negative-coral" : "text-primary-fixed-dim"}`}>
                 {move >= 0 ? "+" : ""}
@@ -130,7 +133,7 @@ export function StockDetailScreen({ symbol, onNeedAuth }: { symbol: string; onNe
       {contextPartial ? (
         <div className="flex items-center justify-between mb-space-lg p-space-md rounded-xl bg-surface-elevated">
           <p className="font-body-sm text-body-sm text-text-secondary">Some context is temporarily unavailable — price and volume are still current.</p>
-          <button type="button" className="font-label-md text-primary" onClick={() => void load()}>
+          <button type="button" className="font-label-md text-primary" onClick={() => void (async () => { await api.refresh(); await load(); })()}>
             Retry
           </button>
         </div>
@@ -141,7 +144,7 @@ export function StockDetailScreen({ symbol, onNeedAuth }: { symbol: string; onNe
         </div>
         <div className="lg:col-span-5 bg-surface-lifted rounded-xl p-space-xl">
           <h3 className="font-headline-md text-headline-md text-text-primary mb-space-sm">Why this was surfaced</h3>
-          {insight ? <ConfidenceIndicator confidence={insight.confidence} /> : <p className="font-body-sm text-text-muted">No derived insight yet. Refresh quotes after adding this symbol.</p>}
+          {insight ? <ConfidenceIndicator confidence={insight.confidence} /> : <div className="space-y-space-sm"><p className="font-body-sm text-text-muted">Your first briefing is ready to calculate once the latest quote is refreshed.</p><button type="button" className="font-label-md text-primary hover:text-primary-fixed" onClick={() => void (async () => { await api.refresh(); await load(); })()}>Refresh now</button></div>}
           <div className="mt-space-md">
             <EvidenceList items={evidence} />
           </div>

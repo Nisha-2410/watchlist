@@ -128,7 +128,15 @@ class Handler(SimpleHTTPRequestHandler):
             symbol=body.get("symbol","").upper();c=store.con(); sec=c.execute("SELECT symbol FROM securities WHERE symbol=?",(symbol,)).fetchone()
             if not sec:return self.api({"error":"Unknown security"},HTTPStatus.NOT_FOUND)
             if c.execute("SELECT count(*) FROM watch_entries WHERE user_id=?",(user["id"],)).fetchone()[0]>=100:return self.api({"error":"Watchlist limit is 100"},HTTPStatus.CONFLICT)
-            c.execute("INSERT OR IGNORE INTO watch_entries(user_id,symbol,watch_type,expires_at,added_at) VALUES(?,?,?,?,?)",(user["id"],symbol,body.get("watchType","permanent"),body.get("expiresAt"),store.now()));c.commit();return self.api({"ok":True})
+            c.execute("INSERT OR IGNORE INTO watch_entries(user_id,symbol,watch_type,expires_at,added_at) VALUES(?,?,?,?,?)",(user["id"],symbol,body.get("watchType","permanent"),body.get("expiresAt"),store.now()));c.commit();c.close()
+            # A catalog quote alone intentionally has no derived insight. A new watch
+            # must take the watch refresh path so it gets a baseline and computation now.
+            try:
+                pipeline.refresh(symbol)
+            except Exception as error:
+                # Keep the user's watch even if an upstream provider is temporarily down.
+                return self.api({"ok":True,"refreshPending":True,"detail":str(error)},HTTPStatus.ACCEPTED)
+            return self.api({"ok":True,"refreshPending":False})
         if path == "/api/watchlist/manage":
             symbol=body.get('symbol','').upper(); c=store.con(); fields=[]; values=[]
             if 'threshold' in body: fields.append('threshold=?');values.append(body['threshold'])
