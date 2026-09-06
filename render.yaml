@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: smart-market-watchlist-api
+    runtime: python
+    rootDir: project
+    # frontend/dist is committed build output and is served by backend.server.
+    buildCommand: python --version
+    startCommand: python -m backend.server
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.10
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: SCHEDULER_ENABLED
+        value: "true"
+      - key: DATA_MODE
+        value: live
+      - key: QUOTE_PROVIDER
+        value: yahoo
+      - key: NEWS_PROVIDER
+        value: none
+      - key: QUOTE_CALL_LIMIT
+        value: "360"
