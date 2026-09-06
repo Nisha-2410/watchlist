@@ -55,6 +55,23 @@ class Handler(SimpleHTTPRequestHandler):
             q=unquote(parse_qs(urlparse(self.path).query).get('q',[''])[0]).upper().strip()
             if not q:return self.api({"results":[]})
             c=store.con(); rows=c.execute("SELECT * FROM securities WHERE upper(symbol) LIKE ? OR upper(name) LIKE ? OR upper(exchange) LIKE ? OR upper(sector) LIKE ? LIMIT 8",(f"%{q}%",f"%{q}%",f"%{q}%",f"%{q}%")).fetchall();return self.api({"results":[dict(x) for x in rows]})
+        if path == "/api/explore":
+            user=self.current_user()
+            if not user:return self.api({"error":"Authentication required"},HTTPStatus.UNAUTHORIZED)
+            query=parse_qs(urlparse(self.path).query); sort=query.get("sort",["move"])[0]; sector=unquote(query.get("sector",[""])[0]).strip()
+            if sort not in {"move","price"}: return self.api({"error":"sort must be move or price"},HTTPStatus.BAD_REQUEST)
+            c=store.con(); where="WHERE s.sector=?" if sector else ""; params=[sector] if sector else []
+            rows=c.execute(f"""SELECT s.symbol,s.name,s.exchange,s.sector,
+                (SELECT price FROM market_snapshots m WHERE m.symbol=s.symbol ORDER BY timestamp DESC,id DESC LIMIT 1) AS price,
+                (SELECT price FROM market_snapshots m WHERE m.symbol=s.symbol ORDER BY timestamp DESC,id DESC LIMIT 1 OFFSET 1) AS prior_price,
+                EXISTS(SELECT 1 FROM watch_entries w WHERE w.user_id=? AND w.symbol=s.symbol AND (w.expires_at IS NULL OR w.expires_at>?)) AS watching
+                FROM securities s {where} ORDER BY s.symbol""",[user["id"],store.now(),*params]).fetchall()
+            sectors=[row["sector"] for row in c.execute("SELECT DISTINCT sector FROM securities ORDER BY sector").fetchall()]; c.close(); items=[]
+            for row in rows:
+                item=dict(row); price=item.pop("price"); prior=item.pop("prior_price"); item["price"]=price; item["move"]=(price/prior-1)*100 if price is not None and prior else None; item["status"]="Not yet tracked" if price is None else None; item["watching"]=bool(item["watching"]); items.append(item)
+            if sort=="price": items.sort(key=lambda item:(item["price"] is not None,item["price"] or 0),reverse=True)
+            else: items.sort(key=lambda item:(item["move"] is not None,abs(item["move"] or 0)),reverse=True)
+            return self.api({"items":items,"sectors":sectors})
         if path == "/api/settings":
             user=self.current_user()
             if not user:return self.api({'error':'Authentication required'},HTTPStatus.UNAUTHORIZED)

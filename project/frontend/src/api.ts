@@ -5,6 +5,7 @@ import type {
   TimelineResponse,
   WatchManageResponse,
   SecuritySearchHit,
+  ExploreResponse,
 } from "./types";
 
 export class ApiRequestError extends Error {
@@ -29,6 +30,7 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
 export const api = {
   home: () => request<HomeResponse>("/api/home"),
   search: (q: string) => request<{ results: SecuritySearchHit[] }>(`/api/search?q=${encodeURIComponent(q)}`),
+  explore: (sort: "move" | "price", sector: string) => request<ExploreResponse>(`/api/explore?sort=${sort}&sector=${encodeURIComponent(sector)}`),
   watchlistManage: () => request<WatchManageResponse>("/api/watchlist/manage"),
   addWatch: (body: { symbol: string; watchType?: string; expiresAt?: string | null }) =>
     request<{ ok: true }>("/api/watchlist", { method: "POST", body: JSON.stringify(body) }),

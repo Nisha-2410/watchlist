@@ -39,7 +39,7 @@ export function App() {
   if (loc.path.startsWith("/stocks/")) {
     page = <StockDetailScreen symbol={loc.path.split("/")[2]?.toUpperCase() ?? ""} onNeedAuth={() => setAuthed(false)} />;
   } else if (loc.path === "/watchlist") {
-    page = <WatchlistScreen initialTier={loc.params.get("tier") || "All"} onNeedAuth={() => setAuthed(false)} />;
+    page = <WatchlistScreen initialTier={loc.params.get("tier") || "All"} initialAddSymbol={loc.params.get("add")} onNeedAuth={() => setAuthed(false)} />;
   } else if (loc.path === "/preferences") {
     page = <PreferencesScreen onNeedAuth={() => setAuthed(false)} />;
   } else {

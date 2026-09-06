@@ -51,6 +51,15 @@ export type SecuritySearchHit = {
   sector: string;
 };
 
+export type ExploreStock = SecuritySearchHit & {
+  price: number | null;
+  move: number | null;
+  status: "Not yet tracked" | null;
+  watching: boolean;
+};
+
+export type ExploreResponse = { items: ExploreStock[]; sectors: string[] };
+
 export type WatchManageEntry = {
   symbol: string;
   watch_type: string;

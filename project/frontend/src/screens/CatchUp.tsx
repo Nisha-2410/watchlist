@@ -8,6 +8,7 @@ import { LoadingSkeleton } from "../components/LoadingSkeleton";
 import { WatchlistPulse } from "../components/WatchlistPulse";
 import { ZeroChangeState } from "../components/ZeroChangeState";
 import { formatDateTime } from "../utils/date";
+import { ExploreCatalog } from "../components/ExploreCatalog";
 
 export function CatchUpScreen({ onNeedAuth }: { onNeedAuth: () => void }) {
   const [data, setData] = useState<HomeResponse | null>(null);
@@ -15,6 +16,7 @@ export function CatchUpScreen({ onNeedAuth }: { onNeedAuth: () => void }) {
   const [loading, setLoading] = useState(true);
   const [reviewing, setReviewing] = useState<string | null>(null);
   const [partial, setPartial] = useState(false);
+  const [view, setView] = useState<"catchup" | "explore">("catchup");
 
   async function load() {
     setLoading(true);
@@ -38,20 +40,21 @@ export function CatchUpScreen({ onNeedAuth }: { onNeedAuth: () => void }) {
   if (loading) return <LoadingSkeleton variant="catchup" />;
   if (error) return <ErrorState message={error} onRetry={() => void load()} />;
   if (!data) return null;
-  if (!data.watchlist.length) {
-    return <EmptyState title="Your watchlist is empty" detail="Add a security to start a briefing. Nothing is tracked until you choose it." action={{ label: "Add stock", onClick: () => { window.location.hash = "#/watchlist"; } }} />;
-  }
-
   const unchanged = data.watchlist.filter((s) => s.tier === "Normal" || s.reviewed).length;
 
   return (
     <div className="space-y-space-xl">
       <header className="space-y-space-2xs">
         <p className="font-label-sm text-label-sm uppercase tracking-widest text-text-muted" title={data.updated}>{formatDateTime(data.updated)}</p>
-        <h1 className="font-headline-lg text-headline-lg text-text-primary tracking-tight">Catch-up</h1>
-        <p className="font-body-md text-body-md text-text-secondary">What meaningfully changed — not every print.</p>
+        <h1 className="font-headline-lg text-headline-lg text-text-primary tracking-tight">{view === "catchup" ? "Catch-up" : "Explore"}</h1>
+        <p className="font-body-md text-body-md text-text-secondary">{view === "catchup" ? "What meaningfully changed — not every print." : "Browse the full catalog and add securities worth following."}</p>
         {data.demo ? <p className="font-body-sm text-body-sm text-tier-significant">Demo quotes are in use. This is not a live-data claim.</p> : null}
       </header>
+      <div className="inline-flex rounded-xl bg-surface-lifted p-1">
+        <button type="button" onClick={() => setView("catchup")} className={`rounded-lg px-space-md py-space-xs font-label-md ${view === "catchup" ? "bg-surface-elevated text-primary shadow-glow" : "text-text-secondary"}`}>Catch-up</button>
+        <button type="button" onClick={() => setView("explore")} className={`rounded-lg px-space-md py-space-xs font-label-md ${view === "explore" ? "bg-surface-elevated text-primary shadow-glow" : "text-text-secondary"}`}>Explore</button>
+      </div>
+      {view === "explore" ? <ExploreCatalog onNeedAuth={onNeedAuth} /> : <>
       {partial ? (
         <div className="flex items-center justify-between gap-space-md p-space-md rounded-xl bg-surface-elevated">
           <p className="font-body-sm text-body-sm text-text-secondary">Some context is temporarily unavailable — price and volume are still current where shown.</p>
@@ -61,7 +64,7 @@ export function CatchUpScreen({ onNeedAuth }: { onNeedAuth: () => void }) {
         </div>
       ) : null}
       <WatchlistPulse pulse={data.pulse} onSelect={(tier) => { window.location.hash = `#/watchlist?tier=${tier}`; }} />
-      {data.catchUp.length === 0 ? (
+      {!data.watchlist.length ? <EmptyState title="Your watchlist is empty" detail="Explore the catalog to find a security worth following." action={{ label: "Explore catalog", onClick: () => setView("explore") }} /> : data.catchUp.length === 0 ? (
         <ZeroChangeState unchanged={unchanged} total={data.watchlist.length} />
       ) : (
         <div className="space-y-space-sm">
@@ -98,6 +101,7 @@ export function CatchUpScreen({ onNeedAuth }: { onNeedAuth: () => void }) {
             .join(" · ")}
         </p>
       ) : null}
+      </>}
     </div>
   );
 }

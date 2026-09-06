@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS peer_relationships(symbol TEXT NOT NULL REFERENCES se
 CREATE TABLE IF NOT EXISTS provider_health(provider TEXT NOT NULL,kind TEXT NOT NULL,symbol TEXT NOT NULL,last_success_at TEXT,last_error_at TEXT,last_error TEXT,consecutive_failures INTEGER NOT NULL DEFAULT 0,PRIMARY KEY(provider,kind,symbol));
 CREATE TABLE IF NOT EXISTS provider_budgets(provider TEXT PRIMARY KEY,window_started TEXT NOT NULL,call_count INTEGER NOT NULL,cooldown_until TEXT);
 CREATE TABLE IF NOT EXISTS provider_cache(cache_key TEXT PRIMARY KEY,value_json TEXT NOT NULL,refreshed_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS catalog_refresh_state(id INTEGER PRIMARY KEY CHECK(id=1),last_symbol TEXT,updated_at TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS schema_migrations(version INTEGER PRIMARY KEY,applied_at TEXT NOT NULL);
 '''); c.executemany("INSERT OR IGNORE INTO securities VALUES(?,?,?,?)",[("AAPL","Apple Inc.","NASDAQ","Technology"),("MSFT","Microsoft Corp.","NASDAQ","Technology"),("NVDA","NVIDIA Corp.","NASDAQ","Semiconductors"),("RELIANCE.NS","Reliance Industries","NSE","Energy"),("INFY.NS","Infosys","NSE","Technology"),("HDFCBANK.NS","HDFC Bank","NSE","Banking")]);
     c.executemany("INSERT OR IGNORE INTO sector_benchmarks VALUES(?,?)",[("Technology","MSFT"),("Semiconductors","NVDA"),("Energy","RELIANCE.NS"),("Banking","HDFCBANK.NS")])

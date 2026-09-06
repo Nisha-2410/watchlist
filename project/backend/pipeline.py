@@ -40,6 +40,22 @@ def refresh(symbol):
         compute(symbol, c)
     finally: c.close()
 
+def catalog_refresh(symbol):
+    """Refresh catalog pricing only; never derive insights for an unwatched symbol."""
+    c = store.con()
+    try:
+        router = quote_router(symbol, c)
+        has_snapshots = c.execute("SELECT 1 FROM market_snapshots WHERE symbol=? LIMIT 1", (symbol,)).fetchone()
+        fetch = router.backfill if not has_snapshots else router.refresh
+        history, source, served_stale = history_or_fetch(c, f"quote:{symbol}", QUOTE_CACHE_SECONDS, lambda: fetch(symbol))
+        for provider, error in router.failures: _record_health(c, provider, "quote", symbol, error)
+        if not history: raise RuntimeError(f"No cached or fresh quote history for {symbol}")
+        for item in history:
+            c.execute("INSERT OR IGNORE INTO market_snapshots(symbol,timestamp,price,volume,source) VALUES(?,?,?,?,?)", (symbol, item.timestamp.isoformat(), item.price, item.volume, source))
+        _record_health(c, source, "quote", symbol, RuntimeError("served stale cache after provider failure")) if served_stale else _record_health(c, source, "quote", symbol)
+        c.commit()
+    finally: c.close()
+
 def ingest_news(symbol):
     """Independent scheduled entry point for normalised market-event ingestion."""
     c, provider = store.con(), news_provider()
