@@ -12,9 +12,9 @@ class AllProvidersExhausted(RuntimeError):
 class BudgetGuard:
     def __init__(self, connection, limit=None, window_seconds=3600, cooldown_seconds=900):
         self.connection = connection
-        # 20 symbols × (60 / 5 min) = 240 routine calls/hour; +60 for new-symbol
-        # 3mo backfills and reserve-then-fail retries. Override with QUOTE_CALL_LIMIT.
-        self.limit = limit if limit is not None else int(os.getenv("QUOTE_CALL_LIMIT", "300"))
+        # 20 symbols × (60 / 5 min) = 240 routine calls/hour.
+        # Default to 360 for 50% retry/scheduling headroom. Override with QUOTE_CALL_LIMIT.
+        self.limit = limit if limit is not None else int(os.getenv("QUOTE_CALL_LIMIT", "360"))
         self.window_seconds = window_seconds
         self.cooldown_seconds = cooldown_seconds
 
@@ -43,12 +43,11 @@ class ProviderRouter:
     def __init__(self, providers, budget):
         self.providers, self.budget, self.failures = providers, budget, []
 
-    def history(self, symbol):
-        return self._fetch(symbol, "history")
+    def backfill(self, symbol):
+        return self._fetch(symbol, "backfill")
 
-    def recent_history(self, symbol):
-        """Prefer a provider's short-window fetch; QuoteProvider.history remains the fallback."""
-        return self._fetch(symbol, "recent_history")
+    def refresh(self, symbol):
+        return self._fetch(symbol, "refresh")
 
     def _fetch(self, symbol, method):
         self.failures = []
@@ -56,7 +55,7 @@ class ProviderRouter:
             if not self.budget.reserve(provider.name):
                 self.failures.append((provider.name, RuntimeError("provider budget or cooldown is active"))); continue
             try:
-                fetch = getattr(provider, method, provider.history)
+                fetch = getattr(provider, method)
                 result = fetch(symbol)
                 if not result: raise RuntimeError("provider returned no snapshots")
                 return result, provider.name

@@ -27,11 +27,11 @@ def yahoo_chart(symbol: str, range: str, interval: str = "1d") -> list[Snapshot]
 class YahooProvider:
     name = "yahoo-finance"
 
-    def history(self, symbol: str) -> list[Snapshot]:
+    def backfill(self, symbol: str) -> list[Snapshot]:
         """One-time 3-month daily baseline used when a symbol has no stored snapshots yet."""
         return yahoo_chart(symbol, "3mo", "1d")
 
-    def recent_history(self, symbol: str) -> list[Snapshot]:
+    def refresh(self, symbol: str) -> list[Snapshot]:
         """Intraday window for scheduled 5-minute refreshes."""
         return yahoo_chart(symbol, "1d", "5m")
 
@@ -42,13 +42,16 @@ class YahooProvider:
 class DemoProvider:
     name = "demo"
 
-    def history(self, symbol: str) -> list[Snapshot]:
+    def backfill(self, symbol: str) -> list[Snapshot]:
         seed = int(hashlib.sha256(symbol.encode()).hexdigest()[:8], 16)
         base, current = 80 + seed % 900, datetime.now(timezone.utc)
         values = [Snapshot(current - timedelta(days=90 - day), round(base * (1 + ((seed >> day) % 7 - 3) * day / 5000), 2), 900000 + seed % 2000000 + day * 2000) for day in range(91)]
         prior = values[-2]
         values[-1] = Snapshot(current, round(prior.price * (1 + ((seed % 8) - 3) / 100), 2), prior.volume * (2 + seed % 2))
         return values
+
+    def refresh(self, symbol: str) -> list[Snapshot]:
+        return self.backfill(symbol)
 
     def is_healthy(self) -> bool:
         return True

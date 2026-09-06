@@ -1,5 +1,6 @@
 import type { Comparison } from "../types";
 import { ArrowRight } from "lucide-react";
+import { formatDateTime } from "../utils/date";
 
 export function BeforeAfterComparison({ comparison }: { comparison: Comparison | null }) {
   if (!comparison) {
@@ -18,12 +19,12 @@ export function BeforeAfterComparison({ comparison }: { comparison: Comparison |
         </div>
         <div className="flex items-center gap-space-md tabular-nums">
           <div className="flex flex-col sm:items-end">
-            <span className="font-label-sm text-label-sm text-text-muted">{comparison.baselineTimestamp}</span>
+            <span className="font-label-sm text-label-sm text-text-muted" title={comparison.baselineTimestamp}>{formatDateTime(comparison.baselineTimestamp)}</span>
             <span className="font-body-md text-body-md text-text-secondary">{comparison.baselinePrice.toFixed(2)}</span>
           </div>
           <ArrowRight size={16} className="text-text-muted" aria-hidden="true" />
           <div className="flex flex-col sm:items-end">
-            <span className={`font-label-sm text-label-sm ${down ? "text-negative-coral" : "text-primary"}`}>Current</span>
+            <span className={`font-label-sm text-label-sm ${down ? "text-negative-coral" : "text-primary"}`} title={comparison.currentTimestamp}>{formatDateTime(comparison.currentTimestamp)}</span>
             <span className={`font-headline-sm text-headline-sm font-medium ${down ? "text-negative-coral" : "text-text-primary"}`}>{comparison.currentPrice.toFixed(2)}</span>
           </div>
           {pct != null ? (

@@ -7,6 +7,7 @@ import { ErrorState } from "../components/ErrorState";
 import { LoadingSkeleton } from "../components/LoadingSkeleton";
 import { WatchlistPulse } from "../components/WatchlistPulse";
 import { ZeroChangeState } from "../components/ZeroChangeState";
+import { formatDateTime } from "../utils/date";
 
 export function CatchUpScreen({ onNeedAuth }: { onNeedAuth: () => void }) {
   const [data, setData] = useState<HomeResponse | null>(null);
@@ -46,7 +47,7 @@ export function CatchUpScreen({ onNeedAuth }: { onNeedAuth: () => void }) {
   return (
     <div className="space-y-space-xl">
       <header className="space-y-space-2xs">
-        <p className="font-label-sm text-label-sm uppercase tracking-widest text-text-muted">{data.updated}</p>
+        <p className="font-label-sm text-label-sm uppercase tracking-widest text-text-muted" title={data.updated}>{formatDateTime(data.updated)}</p>
         <h1 className="font-headline-lg text-headline-lg text-text-primary tracking-tight">Catch-up</h1>
         <p className="font-body-md text-body-md text-text-secondary">What meaningfully changed — not every print.</p>
         {data.demo ? <p className="font-body-sm text-body-sm text-tier-significant">Demo quotes are in use. This is not a live-data claim.</p> : null}

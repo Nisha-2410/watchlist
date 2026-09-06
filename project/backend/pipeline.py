@@ -26,7 +26,8 @@ def refresh(symbol):
     try:
         router = quote_router(symbol, c)
         has_snapshots = c.execute("SELECT 1 FROM market_snapshots WHERE symbol=? LIMIT 1", (symbol,)).fetchone()
-        fetch = router.history if not has_snapshots else router.recent_history
+        # Seed daily baselines exactly once; then ingest lightweight 5-minute bars.
+        fetch = router.backfill if not has_snapshots else router.refresh
         history, source, served_stale = history_or_fetch(c, f"quote:{symbol}", QUOTE_CACHE_SECONDS, lambda: fetch(symbol))
         # Router failures are persisted even when a lower-priority provider succeeds.
         for provider, error in router.failures: _record_health(c, provider, "quote", symbol, error)
