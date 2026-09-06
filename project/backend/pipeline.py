@@ -34,7 +34,7 @@ def refresh(symbol):
         for item in history:
             c.execute("INSERT OR IGNORE INTO market_snapshots(symbol,timestamp,price,volume,source) VALUES(?,?,?,?,?)", (symbol, item.timestamp.isoformat(), item.price, item.volume, source))
         _record_health(c, source, "quote", symbol, RuntimeError("served stale cache after provider failure")) if served_stale else _record_health(c, source, "quote", symbol)
-        if source == "demo": ingest_demo_events(symbol, history[-1].timestamp.isoformat(), c)
+        ingest_sample_context_events(symbol, history[-1].timestamp.isoformat(), c)
         c.commit()
         compute(symbol, c)
     finally: c.close()
@@ -50,12 +50,19 @@ def ingest_news(symbol):
         _record_health(c, provider.name, "news", symbol, error); c.commit(); raise
     finally: c.close()
 
-def ingest_demo_events(symbol, timestamp, c):
+SAMPLE_CONTEXT_SOURCE = "sample-context"
+
+def ingest_sample_context_events(symbol, timestamp, c):
+    """Illustrative timeline rows. Not a news provider and not live filings."""
     date = timestamp[:10]
-    events = [("Company","announcement",f"{symbol} simulated company update","Demo company disclosure for timeline testing."),("Sector","sector",f"{symbol} sector context updated","Simulated sector comparison is available."),("Domestic","market","Market context update","Simulated domestic market context; shown as context, not cause.")]
+    events = [
+        ("Company", "announcement", f"{symbol} sample company update", "Illustrative company disclosure for timeline layout; not a live filing."),
+        ("Sector", "sector", f"{symbol} sector context sample", "Illustrative sector comparison for layout testing; not a live sector event."),
+        ("Domestic", "market", "Sample market context update", "Illustrative domestic market context; shown as context, not cause, and not live news."),
+    ]
     for layer,category,title,detail in events:
         if not c.execute("SELECT id FROM market_events WHERE symbol=? AND title=? AND timestamp LIKE ?", (symbol,title,f"{date}%")).fetchone():
-            c.execute("INSERT INTO market_events(symbol,layer,category,title,detail,source,timestamp,status) VALUES(?,?,?,?,?,?,?,?)", (symbol,layer,category,title,detail,"demo-provider",timestamp,"active"))
+            c.execute("INSERT INTO market_events(symbol,layer,category,title,detail,source,timestamp,status) VALUES(?,?,?,?,?,?,?,?)", (symbol,layer,category,title,detail,SAMPLE_CONTEXT_SOURCE,timestamp,"active"))
     thread = c.execute("SELECT id FROM event_threads WHERE symbol=? AND category='announcement' AND status='active'", (symbol,)).fetchone()
     thread_id = thread["id"] if thread else c.execute("INSERT INTO event_threads(symbol,category,status,opened_at,updated_at) VALUES(?,?,?,?,?)", (symbol,"announcement","active",timestamp,timestamp)).lastrowid
     for event in c.execute("SELECT id FROM market_events WHERE symbol=? AND category='announcement'", (symbol,)).fetchall(): c.execute("INSERT OR IGNORE INTO thread_events(thread_id,event_id) VALUES(?,?)", (thread_id,event["id"]))
