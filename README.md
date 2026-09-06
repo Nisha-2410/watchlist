@@ -1,5 +1,7 @@
 # Smart Market Watchlist
 
+[Live app on Render](https://stock-watchlist-son1.onrender.com/)
+
 An evidence-first market watchlist. It tracks selected securities, classifies price and volume changes as **Normal**, **Notable**, or **Significant**, and adds peer, sector-benchmark, and event-timeline context. It is an observation and review tool—not a trading application.
 
 ## Table of contents
