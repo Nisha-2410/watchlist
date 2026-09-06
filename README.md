@@ -207,7 +207,7 @@ This repository includes [`render.yaml`](render.yaml) for one Render Web Service
 
 3. In Render, confirm the service uses repository root directory `project`, start command `python -m backend.server`, and Auto-Deploy is **On Commit**. A push to the linked branch then rebuilds and deploys automatically. If Auto-Deploy is off, use **Manual Deploy → Deploy latest commit** instead.
 
-4. Share the service's public `https://<your-service>.onrender.com` URL. Do not share the Render dashboard URL, deploy hooks, or environment-variable values. Visitors can reach the app and create their own local app account/session.
+4. Share the public deployment URL: [Smart Market Watchlist on Render](https://stock-watchlist-son1.onrender.com/). Do not share the Render dashboard URL, deploy hooks, or environment-variable values. Visitors can reach the app and create their own local app account/session.
 
 Render's default filesystem is ephemeral. Without a paid persistent disk, `project/backend/watchlist.db` is reset on a restart or redeploy; that includes local users, watches, imported securities, and cached quotes. Attach a persistent disk and move the DB there for a durable demo, or migrate to hosted Postgres for production.
 
