@@ -7,6 +7,8 @@ import type {
   SecuritySearchHit,
 } from "./types";
 
+const apiBaseUrl = (import.meta.env.VITE_API_URL ?? "").replace(/\/+$/, "");
+
 export class ApiRequestError extends Error {
   status: number;
   payload: unknown;
@@ -20,7 +22,7 @@ export class ApiRequestError extends Error {
 async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   const headers = new Headers(init.headers);
   if (init.body && !headers.has("Content-Type")) headers.set("Content-Type", "application/json");
-  const response = await fetch(path, { ...init, headers, credentials: "same-origin" });
+  const response = await fetch(`${apiBaseUrl}${path}`, { ...init, headers, credentials: "include" });
   const payload = await response.json().catch(() => ({}));
   if (!response.ok) throw new ApiRequestError(response.status, payload);
   return payload as T;

@@ -3,6 +3,8 @@ import sqlite3, hashlib, secrets, hmac
 from pathlib import Path
 from datetime import datetime, timezone
 
+# Render's default filesystem is ephemeral: this database resets on restart or
+# redeploy unless the application directory is backed by an attached persistent disk.
 DB = Path(__file__).with_name("watchlist.db")
 def now(): return datetime.now(timezone.utc).isoformat()
 def con():
