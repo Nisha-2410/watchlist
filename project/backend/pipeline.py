@@ -99,16 +99,33 @@ def _correlation(left, right):
     denominator=(sum((x-xmean)**2 for x in xs)*sum((y-ymean)**2 for y in ys))**0.5
     return sum((x-xmean)*(y-ymean) for x,y in zip(xs,ys))/denominator if denominator else None
 
+def _latest_two_price_move(c, symbol):
+    """Same snapshot-to-snapshot percent move used for peers and the sector benchmark."""
+    rows = c.execute("SELECT price FROM market_snapshots WHERE symbol=? ORDER BY timestamp DESC LIMIT 2", (symbol,)).fetchall()
+    if len(rows) == 2 and rows[1]["price"]:
+        return (rows[0]["price"] / rows[1]["price"] - 1) * 100
+    return None
+
 def peer_divergence_context(c, symbol, symbol_move):
     """Return peer context only when stored daily returns show a real relationship."""
     target_returns=_daily_returns(c,symbol); peer_moves=[]; correlations=[]
     for peer in c.execute("SELECT peer_symbol FROM peer_relationships WHERE symbol=?",(symbol,)).fetchall():
-        peer_symbol=peer['peer_symbol']; peer_rows=c.execute("SELECT price FROM market_snapshots WHERE symbol=? ORDER BY timestamp DESC LIMIT 2",(peer_symbol,)).fetchall()
-        if len(peer_rows)==2 and peer_rows[1]['price']: peer_moves.append((peer_rows[0]['price']/peer_rows[1]['price']-1)*100)
+        peer_symbol=peer['peer_symbol']; peer_move=_latest_two_price_move(c, peer_symbol)
+        if peer_move is not None: peer_moves.append(peer_move)
         correlation=_correlation(target_returns,_daily_returns(c,peer_symbol))
         if correlation is not None: correlations.append(correlation)
     peer_move=median(peer_moves) if peer_moves else 0.0; correlation=median(correlations) if correlations else None; zscore=leave_one_out_zscore(symbol_move,peer_moves)
     return peer_move,zscore,correlation,bool(correlation is not None and correlation>=0.30 and abs(zscore)>=2.0)
+
+def sector_benchmark_context(c, symbol):
+    """Look up this stock's sector benchmark move. Independent of peer_relationships math."""
+    security = c.execute("SELECT sector FROM securities WHERE symbol=?", (symbol,)).fetchone()
+    if not security:
+        return None, None
+    bench = c.execute("SELECT benchmark_symbol FROM sector_benchmarks WHERE sector=?", (security["sector"],)).fetchone()
+    if not bench or bench["benchmark_symbol"] == symbol:
+        return None, None
+    return bench["benchmark_symbol"], _latest_two_price_move(c, bench["benchmark_symbol"])
 
 def compute(symbol, c=None):
     own = c is None; c = c or store.con()
@@ -119,15 +136,17 @@ def compute(symbol, c=None):
         move = (latest["price"]/baseline["price"]-1)*100; vols = [row["volume"] or 0 for row in rows[-31:-1]]; vr = (latest["volume"] or 0)/(sum(vols)/len(vols) or 1)
         returns = [(rows[i]["price"]/rows[i-1]["price"]-1)*100 for i in range(1,len(rows)) if rows[i-1]["price"]]; volatility = pstdev(returns[-20:]) if len(returns)>2 else 0; historical=[abs(x) for x in returns[-90:-1]]; unusualness=abs(move)/(sum(historical)/len(historical) or 1) if historical else 0
         peer_move,peer_zscore,peer_correlation,peer_divergence=peer_divergence_context(c,symbol,move); relative_move=move-peer_move
+        benchmark_symbol,benchmark_move=sector_benchmark_context(c,symbol)
         event=c.execute("SELECT 1 FROM market_events WHERE symbol=? AND abs(strftime('%s',timestamp)-strftime('%s',?))<=14400 LIMIT 1",(symbol,latest["timestamp"])).fetchone(); stale=(datetime.now(timezone.utc)-datetime.fromisoformat(latest["timestamp"])).total_seconds()>172800
         signals=Signals(move,relative_move=relative_move,volume_ratio=vr,event_match=bool(event),peer_divergence=peer_divergence,stale=stale,conflicting_sources=conflicting,volatility=volatility,historical_unusualness=unusualness)
         evidence=[f"{move:+.1f}% price move since baseline",f"{vr:.1f}× 30-day comparable volume",f"Realized volatility {volatility:.2f}%"]
         if peer_correlation is not None:evidence.append(f"{relative_move:+.1f} percentage points versus peers (correlation {peer_correlation:.2f})")
         if peer_divergence:evidence.append(f"Robust peer-divergence score {peer_zscore:+.1f} passed the correlation gate")
+        if benchmark_symbol and benchmark_move is not None:evidence.append(f"Sector benchmark ({benchmark_symbol}) moved {benchmark_move:+.1f}% vs this stock's {move:+.1f}%")
         if unusualness>=2:evidence.append(f"Move is {unusualness:.1f}× its recent average daily movement")
         if event:evidence.append("Company event detected near the market move")
         if conflicting:evidence.append(f"Configured providers disagree by more than {CONFLICT_PERCENT:.0f}%")
         freshness="Demo data · simulated provider" if latest["source"]=="demo" else ("Conflicting provider data" if conflicting else "Delayed end-of-day provider data")
-        c.execute("INSERT OR REPLACE INTO derived_insights VALUES(?,?,?,?,?,?,?,?,?,?,?)",(symbol,store.now(),baseline["price"],latest["price"],classify(signals),confidence(signals),rank_score(signals),json.dumps({"absoluteMove":move,"relativeMove":relative_move,"volumeRatio":vr,"volatility":volatility,"historicalUnusualness":unusualness,"peerMove":peer_move,"peerZScore":peer_zscore,"peerCorrelation":peer_correlation,"conflictingSources":conflicting,"stale":stale}),json.dumps(evidence),MODEL_VERSION,freshness)); c.commit()
+        c.execute("INSERT OR REPLACE INTO derived_insights VALUES(?,?,?,?,?,?,?,?,?,?,?)",(symbol,store.now(),baseline["price"],latest["price"],classify(signals),confidence(signals),rank_score(signals),json.dumps({"absoluteMove":move,"relativeMove":relative_move,"volumeRatio":vr,"volatility":volatility,"historicalUnusualness":unusualness,"peerMove":peer_move,"peerZScore":peer_zscore,"peerCorrelation":peer_correlation,"sectorBenchmark":benchmark_symbol,"sectorBenchmarkMove":benchmark_move,"conflictingSources":conflicting,"stale":stale}),json.dumps(evidence),MODEL_VERSION,freshness)); c.commit()
     finally:
         if own:c.close()
