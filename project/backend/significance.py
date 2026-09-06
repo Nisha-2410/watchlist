@@ -20,6 +20,8 @@ class Signals:
     peer_divergence: bool = False
     stale: bool = False
     conflicting_sources: bool = False
+    volatility: float = 0
+    historical_unusualness: float = 0
 
 
 def classify(signals: Signals) -> Tier:
@@ -27,7 +29,7 @@ def classify(signals: Signals) -> Tier:
     move = abs(signals.absolute_move)
     relative = abs(signals.relative_move)
     notable = move >= 3 or signals.volume_ratio >= 2
-    corroborated = signals.event_match or signals.peer_divergence or relative >= 3
+    corroborated = signals.event_match or signals.peer_divergence or relative >= 3 or signals.historical_unusualness >= 2
     if move >= 6 or relative >= 6 or (notable and corroborated):
         return "Significant"
     return "Notable" if notable else "Normal"
@@ -37,7 +39,7 @@ def confidence(signals: Signals) -> Confidence:
     """Data quality caps confidence; independent corroboration earns High."""
     contributors = sum((abs(signals.absolute_move) >= 3, signals.volume_ratio >= 2,
                         abs(signals.relative_move) >= 3, signals.event_match,
-                        signals.peer_divergence))
+                        signals.peer_divergence, signals.historical_unusualness >= 2))
     value: Confidence = "High" if contributors >= 2 else "Low"
     if signals.stale or signals.conflicting_sources:
         return "Medium" if value == "High" else "Low"

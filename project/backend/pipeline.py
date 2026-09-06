@@ -120,7 +120,7 @@ def compute(symbol, c=None):
         returns = [(rows[i]["price"]/rows[i-1]["price"]-1)*100 for i in range(1,len(rows)) if rows[i-1]["price"]]; volatility = pstdev(returns[-20:]) if len(returns)>2 else 0; historical=[abs(x) for x in returns[-90:-1]]; unusualness=abs(move)/(sum(historical)/len(historical) or 1) if historical else 0
         peer_move,peer_zscore,peer_correlation,peer_divergence=peer_divergence_context(c,symbol,move); relative_move=move-peer_move
         event=c.execute("SELECT 1 FROM market_events WHERE symbol=? AND abs(strftime('%s',timestamp)-strftime('%s',?))<=14400 LIMIT 1",(symbol,latest["timestamp"])).fetchone(); stale=(datetime.now(timezone.utc)-datetime.fromisoformat(latest["timestamp"])).total_seconds()>172800
-        signals=Signals(move,relative_move=relative_move,volume_ratio=vr,event_match=bool(event),peer_divergence=peer_divergence,stale=stale,conflicting_sources=conflicting)
+        signals=Signals(move,relative_move=relative_move,volume_ratio=vr,event_match=bool(event),peer_divergence=peer_divergence,stale=stale,conflicting_sources=conflicting,volatility=volatility,historical_unusualness=unusualness)
         evidence=[f"{move:+.1f}% price move since baseline",f"{vr:.1f}× 30-day comparable volume",f"Realized volatility {volatility:.2f}%"]
         if peer_correlation is not None:evidence.append(f"{relative_move:+.1f} percentage points versus peers (correlation {peer_correlation:.2f})")
         if peer_divergence:evidence.append(f"Robust peer-divergence score {peer_zscore:+.1f} passed the correlation gate")
