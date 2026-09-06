@@ -63,8 +63,14 @@ def ingest_demo_events(symbol, timestamp, c):
 def _latest_consensus(c, symbol):
     rows = c.execute("SELECT * FROM market_snapshots WHERE symbol=? ORDER BY timestamp DESC", (symbol,)).fetchall()
     if not rows: return None, False
-    latest = rows[0]; prices = [row["price"] for row in rows if row["timestamp"][:10] == latest["timestamp"][:10]]
-    return latest, len(prices) > 1 and (max(prices)-min(prices))/min(prices)*100 > CONFLICT_PERCENT
+    latest = rows[0]
+    # One source can have many 5m prints the same day; conflict is latest-per-source disagreement.
+    latest_by_source = {}
+    for row in rows:
+        if row["timestamp"][:10] == latest["timestamp"][:10]:
+            latest_by_source.setdefault(row["source"], row)
+    prices = [row["price"] for row in latest_by_source.values() if row["price"]]
+    return latest, len(prices) > 1 and (max(prices) - min(prices)) / min(prices) * 100 > CONFLICT_PERCENT
 
 def leave_one_out_zscore(symbol_return, peer_returns):
     """Robustly compare a move with its peer group without one outlier dominating."""

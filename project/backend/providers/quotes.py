@@ -10,10 +10,10 @@ from datetime import datetime, timedelta, timezone
 from .base import Snapshot
 
 
-def yahoo_chart(symbol: str, range: str) -> list[Snapshot]:
-    """Fetch daily bars for a Yahoo chart range. Routine refreshes should use a short window."""
-    url = "https://query1.finance.yahoo.com/v8/finance/chart/{}?range={}&interval=1d".format(
-        urllib.parse.quote(symbol), urllib.parse.quote(range)
+def yahoo_chart(symbol: str, range: str, interval: str = "1d") -> list[Snapshot]:
+    """Fetch Yahoo chart bars. Backfill uses daily bars; routine refreshes use a short intraday window."""
+    url = "https://query1.finance.yahoo.com/v8/finance/chart/{}?range={}&interval={}".format(
+        urllib.parse.quote(symbol), urllib.parse.quote(range), urllib.parse.quote(interval)
     )
     with urllib.request.urlopen(url, timeout=12) as response:
         raw = json.load(response)["chart"]["result"][0]
@@ -28,12 +28,12 @@ class YahooProvider:
     name = "yahoo-finance"
 
     def history(self, symbol: str) -> list[Snapshot]:
-        """One-time 3-month baseline used when a symbol has no stored snapshots yet."""
-        return yahoo_chart(symbol, "3mo")
+        """One-time 3-month daily baseline used when a symbol has no stored snapshots yet."""
+        return yahoo_chart(symbol, "3mo", "1d")
 
     def recent_history(self, symbol: str) -> list[Snapshot]:
-        """Short window for scheduled refreshes; enough to pick up the latest daily bar."""
-        return yahoo_chart(symbol, "5d")
+        """Intraday window for scheduled 5-minute refreshes."""
+        return yahoo_chart(symbol, "1d", "5m")
 
     def is_healthy(self) -> bool:
         return True
