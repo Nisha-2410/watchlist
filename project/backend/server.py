@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import os
+import threading
 from http import HTTPStatus
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -14,12 +15,12 @@ from urllib.parse import urlparse, parse_qs, unquote
 from http.cookies import SimpleCookie
 from backend import store
 from backend import pipeline
+from backend import scheduler
 
 ROOT = Path(__file__).resolve().parents[1]
-# Used for local single-process development only; Vercel serves the frontend in
-# the split deployment, so this directory is unused there but intentionally kept.
+# The single Render service serves this compiled frontend alongside the API.
+# It remains useful for local single-process development as well.
 FRONTEND_DIST = ROOT / "frontend" / "dist"
-ALLOWED_ORIGIN = os.getenv("ALLOWED_ORIGIN", "").rstrip("/")
 
 
 class Handler(SimpleHTTPRequestHandler):
@@ -34,27 +35,14 @@ class Handler(SimpleHTTPRequestHandler):
         self.send_response(status)
         self.send_header("Content-Type", "application/json")
         self.send_header("Content-Length", str(len(data)))
-        self._cors_headers()
-        if token: self.send_header("Set-Cookie", f"session={token}; Path=/; HttpOnly; SameSite=None; Secure")
+        if token: self.send_header("Set-Cookie", self._session_cookie(token))
         self.end_headers(); self.wfile.write(data)
 
-    def _cors_headers(self):
-        """Allow the configured Vercel origin to send credentialed API requests."""
-        if ALLOWED_ORIGIN:
-            self.send_header("Access-Control-Allow-Origin", ALLOWED_ORIGIN)
-            self.send_header("Access-Control-Allow-Credentials", "true")
-            self.send_header("Vary", "Origin")
-
-    def do_OPTIONS(self):
-        if urlparse(self.path).path.startswith("/api/"):
-            self.send_response(HTTPStatus.NO_CONTENT)
-            self._cors_headers()
-            self.send_header("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
-            self.send_header("Access-Control-Allow-Headers", "Content-Type")
-            self.send_header("Access-Control-Max-Age", "600")
-            self.end_headers()
-            return
-        self.send_error(HTTPStatus.NOT_FOUND)
+    @staticmethod
+    def _session_cookie(token):
+        """Same-origin sessions; enable Secure when Render terminates HTTPS."""
+        secure = "; Secure" if os.getenv("COOKIE_SECURE", "false").lower() == "true" else ""
+        return f"session={token}; Path=/; HttpOnly; SameSite=Lax{secure}"
 
     def do_GET(self):
         path = urlparse(self.path).path
@@ -217,6 +205,8 @@ class Handler(SimpleHTTPRequestHandler):
 
 if __name__ == "__main__":
     store.init()
+    if os.getenv("SCHEDULER_ENABLED", "true").lower() == "true":
+        threading.Thread(target=scheduler.run_forever, name="watchlist-scheduler", daemon=True).start()
     port = int(os.getenv("PORT", "8000"))
     print(f"Smart Market Watchlist listening on 0.0.0.0:{port} (set DATA_MODE=live and QUOTE_PROVIDER=yahoo for live quotes)")
     ThreadingHTTPServer(("0.0.0.0", port), Handler).serve_forever()

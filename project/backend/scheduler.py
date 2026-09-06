@@ -25,9 +25,15 @@ def news_cycle():
         try: pipeline.ingest_news(symbol)
         except Exception as error: print(f"news ingestion failed for {symbol}: {error}")
 
-if __name__ == '__main__':
-    parser=argparse.ArgumentParser(); parser.add_argument('--once',action='store_true'); args=parser.parse_args()
+def run_forever():
+    """Run refresh cycles every five minutes for the single-process deployment."""
     while True:
         cycle()
-        if args.once: break
         time.sleep(INTERVAL_SECONDS)
+
+if __name__ == '__main__':
+    parser=argparse.ArgumentParser(); parser.add_argument('--once',action='store_true'); args=parser.parse_args()
+    if args.once:
+        cycle()
+    else:
+        run_forever()
