@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      "colors": {
+        "surface-container-low": "#181c1a",
+        "error-container": "#93000a",
+        "inverse-primary": "#206b43",
+        "tertiary-fixed": "#ffdbd2",
+        "on-secondary-fixed-variant": "#2d4d40",
+        "tier-significant": "#E5A96A",
+        "tier-normal": "#5A6560",
+        "outline": "#89938a",
+        "surface-container-high": "#272b28",
+        "secondary-fixed": "#c6ebd9",
+        "surface-base": "#0B0F0D",
+        "surface-container-highest": "#323633",
+        "on-tertiary-fixed": "#350f06",
+        "on-background": "#e0e3df",
+        "surface-elevated": "#1B2420",
+        "inverse-surface": "#e0e3df",
+        "tertiary-container": "#ffb8a6",
+        "surface-tint": "#8dd6a6",
+        "surface-container-lowest": "#0b0f0d",
+        "primary": "#aaf6c3",
+        "text-muted": "#606D66",
+        "on-secondary-container": "#9dc0b0",
+        "surface": "#101412",
+        "surface-border": "#232E28",
+        "negative-coral": "#E57A77",
+        "outline-variant": "#404941",
+        "surface-lifted": "#131A16",
+        "tier-notable": "#7D9BB2",
+        "background": "#101412",
+        "text-primary": "#F2F5F3",
+        "primary-fixed-dim": "#8dd6a6",
+        "on-surface-variant": "#bfc9bf",
+        "tertiary-fixed-dim": "#fcb6a4",
+        "surface-dim": "#101412",
+        "on-primary-container": "#12603a",
+        "secondary-container": "#2f4f42",
+        "surface-container": "#1c201e",
+        "secondary-fixed-dim": "#abcebe",
+        "on-tertiary-fixed-variant": "#6a392c",
+        "primary-fixed": "#a8f3c0",
+        "on-tertiary-container": "#7a4639",
+        "on-tertiary": "#4f2418",
+        "surface-bright": "#363a38",
+        "on-secondary": "#15362a",
+        "on-secondary-fixed": "#002116",
+        "text-secondary": "#9EABA4",
+        "on-error-container": "#ffdad6",
+        "surface-variant": "#323633",
+        "on-primary-fixed": "#00210f",
+        "inverse-on-surface": "#2d312f",
+        "primary-container": "#8fd9a8",
+        "error": "#ffb4ab",
+        "on-surface": "#e0e3df",
+        "on-primary-fixed-variant": "#00522e",
+        "on-error": "#690005",
+        "on-primary": "#00391e",
+        "tertiary": "#ffded6",
+        "secondary": "#abcebe"
+      },
+      "borderRadius": {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px"
+      },
+      "spacing": {
+        "space-3xs": "0.125rem",
+        "gutter-desktop": "1.5rem",
+        "max-width": "1280px",
+        "space-xs": "0.5rem",
+        "space-3xl": "4rem",
+        "gutter-mobile": "1rem",
+        "space-2xs": "0.25rem",
+        "space-lg": "1.5rem",
+        "space-md": "1rem",
+        "space-2xl": "3rem",
+        "space-sm": "0.75rem",
+        "space-xl": "2rem"
+      },
+      "fontFamily": {
+        "body-sm": ["Geist"],
+        "label-md": ["Geist"],
+        "display-lg": ["Geist"],
+        "headline-lg": ["Geist"],
+        "label-sm": ["Geist"],
+        "data-delta": ["Geist"],
+        "body-md": ["Geist"],
+        "headline-md": ["Geist"],
+        "headline-sm": ["Geist"],
+        "body-lg": ["Geist"],
+        "display-lg-mobile": ["Geist"],
+        "data-metric": ["Geist"]
+      },
+      "fontSize": {
+        "body-sm": ["12px", {"lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+        "label-md": ["13px", {"lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "600"}],
+        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+        "data-delta": ["13px", {"lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+        "body-md": ["14px", {"lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400"}],
+        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "500"}],
+        "headline-sm": ["16px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+        "body-lg": ["16px", {"lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "400"}],
+        "display-lg-mobile": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+        "data-metric": ["28px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "500"}]
+      }
+    }
+  }
+}</script></head><body class="bg-surface-base text-text-primary antialiased selection:bg-secondary-container selection:text-primary"><aside class="fixed left-0 top-0 h-screen w-72 bg-surface-lifted border-r border-surface-border flex flex-col justify-between z-40"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm border-b border-surface-border"><div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center p-space-3xs"><img alt="Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VImrR9Y2EHZztLitBplE6UgiZ9EW5a7Nk8hJixma35f4MLa97ScT5ElE9SLoxzKOFBwxOPWpPpnThywuZ78GHamY-PguA7s24b0Qv0T7gwFYAX8XZtr5tNEn21QbFFAM4Nk9F_SiBjsMFJC1WV92EmUL0w4DR0E1z9uo09i2NFUqQhFD8HzcGkpFtuW9hBVyToNMtuFbpd9-v3qqVOIT5IoVeQuqbVbS7QTZAuEmsxgvC5WfoMJW_gpeg"/></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm font-medium tracking-tight text-text-primary">Smart Market</span><span class="font-label-sm text-label-sm uppercase tracking-wider text-text-muted">Briefing Desk</span></div></div><div class="p-space-md"><div class="px-space-sm py-space-2xs mb-space-xs font-label-sm text-label-sm uppercase tracking-widest text-text-muted">Intelligence</div><nav class="flex flex-col gap-space-2xs" data-active-classes="bg-surface-elevated text-primary border border-surface-border shadow-[inset_0_0_0_1px_rgba(143,217,168,0.25)]"><a class="group flex flex-col px-space-md py-space-sm rounded-xl transition-all hover:bg-surface-elevated hover:text-on-surface" data-path="catch-up" href="#"><div class="flex items-center justify-between"><span class="font-label-md text-label-md font-medium text-text-primary group-hover:text-primary transition-colors">Catch-up</span><span class="w-1.5 h-1.5 rounded-full bg-primary-fixed-dim opacity-70"></span></div><span class="font-body-sm text-body-sm text-text-muted mt-space-3xs">2 meaningful changes</span></a><a class="group flex flex-col px-space-md py-space-sm rounded-xl transition-all hover:bg-surface-elevated hover:text-on-surface" data-path="watchlist" href="#"><div class="flex items-center justify-between"><span class="font-label-md text-label-md font-medium text-text-primary group-hover:text-primary transition-colors">Watchlist</span><span class="font-label-sm text-label-sm text-text-muted">20</span></div><span class="font-body-sm text-body-sm text-text-muted mt-space-3xs">20 stocks</span></a><a aria-current="page" class="group flex flex-col px-space-md py-space-sm rounded-xl transition-all bg-surface-elevated text-primary border border-surface-border shadow-[inset_0_0_0_1px_rgba(143,217,168,0.25)]" data-path="preferences" href="#"><div class="flex items-center justify-between"><span class="font-label-md text-label-md font-medium text-text-primary group-hover:text-primary transition-colors">Preferences</span><span class="font-label-sm text-label-sm text-text-muted">5</span></div><span class="font-body-sm text-body-sm text-text-muted mt-space-3xs">5 active rules</span></a></nav></div></div><div class="p-space-md border-t border-surface-border bg-surface-lifted"><div class="flex items-center gap-space-sm mb-space-sm"><img alt="Elena Vance" class="w-9 h-9 rounded-full object-cover ring-1 ring-surface-border" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHH0gdOfErGFYng-F7PjhI9Z_oBqNAYG_W1klQhow7lhAXJ5UVR4PCmqTYzcW6tqIs64AmuGvCwtSoqeCjaeLNHit6Jq0GbZsgugdtTJTkz5pE46PwN7FdcSstI6DPqTLmfn2TP41-_hJEXzuLaKYlHG5bcYOLpsHISmNt4xRcRtda2nlmAa-hWFMxZxJ-EmE9IectWB2y0oimwF8Fw_YaqIqavgOoPicqUfqq3W2HegDBxrPpiFHc"/><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md font-medium text-text-primary truncate">Elena Vance</span><span class="font-body-sm text-body-sm text-text-muted truncate">Chief Strategist</span></div></div><div class="flex items-center justify-between pt-space-2xs"><button class="font-body-sm text-body-sm text-text-muted hover:text-negative-coral transition-colors flex items-center gap-space-2xs" type="button"><span class="material-symbols-outlined text-[16px]">logout</span>Sign out</button><span class="font-label-sm text-label-sm text-text-muted">v2.4</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-base/80 backdrop-blur-xl border-b border-surface-border z-30 flex items-center justify-between px-space-xl"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-2xs text-text-muted font-body-sm text-body-sm"><span class="w-2 h-2 rounded-full bg-primary-fixed-dim animate-pulse"></span><span>Market Calm</span><span class="mx-space-xs text-outline-variant">•</span><span>Curated Briefing Active</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center bg-surface-lifted border border-surface-border rounded-lg px-space-sm h-[34px] w-64 gap-space-xs"><span class="material-symbols-outlined text-[16px] text-text-muted">search</span><span class="font-body-sm text-body-sm text-text-muted">Search instruments...</span><kbd class="ml-auto font-label-sm text-label-sm text-text-muted bg-surface-container px-1.5 py-0.5 rounded">⌘K</kbd></div><div class="h-4 w-[1px] bg-surface-border"></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VImrR9Y2EHZztLitBplE6UgiZ9EW5a7Nk8hJixma35f4MLa97ScT5ElE9SLoxzKOFBwxOPWpPpnThywuZ78GHamY-PguA7s24b0Qv0T7gwFYAX8XZtr5tNEn21QbFFAM4Nk9F_SiBjsMFJC1WV92EmUL0w4DR0E1z9uo09i2NFUqQhFD8HzcGkpFtuW9hBVyToNMtuFbpd9-v3qqVOIT5IoVeQuqbVbS7QTZAuEmsxgvC5WfoMJW_gpeg"/></div></header><main class="relative pt-16 min-h-screen bg-surface-base"><div class="flex flex-col w-full">
+<div class="max-w-[1280px] w-full mx-auto px-space-xl py-space-2xl space-y-space-3xl">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-space-lg pb-space-lg">
+<div class="space-y-space-2xs max-w-2xl">
+<div class="flex items-center gap-space-xs mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Intelligence Tuning</span>
+<span class="text-text-muted">•</span>
+<span class="font-label-sm text-label-sm text-text-muted">Briefing Parameters</span>
+</div>
+<h1 class="font-display-lg text-display-lg tracking-tight text-text-primary">Preferences</h1>
+<p class="font-body-lg text-body-lg text-text-secondary">
+          Configure what Smart Watchlist surfaces and how personal thresholds guide your briefing.
+        </p>
+</div>
+<!-- Quick Action Feedback Indicator -->
+<div class="flex items-center gap-space-sm bg-surface-lifted px-space-md py-space-sm rounded-xl shadow-sm self-start md:self-auto">
+<div class="relative flex items-center justify-center">
+<span class="w-2.5 h-2.5 rounded-full bg-primary animate-ping absolute opacity-60"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-text-primary uppercase tracking-wider">Sync State</span>
+<span class="font-body-sm text-body-sm text-text-muted">Auto-saves to desk profile</span>
+</div>
+</div>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+<!-- Left Column: What I Care About & System State -->
+<div class="lg:col-span-6 space-y-space-3xl">
+<!-- Section 1: What I care about -->
+<section class="space-y-space-lg">
+<div class="space-y-space-3xs">
+<h2 class="font-headline-md text-headline-md text-text-primary tracking-tight">What I care about</h2>
+<p class="font-body-md text-body-md text-text-muted">High-signal filters calibrated to omit intraday noise.</p>
+</div>
+<div class="bg-surface-lifted rounded-xl shadow-sm p-space-md divide-y-0 space-y-space-xs">
+<!-- Toggle 1 -->
+<div class="flex items-start justify-between p-space-md rounded-lg bg-surface-container-lowest/60 hover:bg-surface-container-low transition-colors duration-150 gap-space-lg">
+<div class="space-y-space-3xs">
+<span class="font-headline-sm text-headline-sm text-text-primary block">Price moves</span>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Surface intraday price deviations exceeding sector-adjusted norms.</p>
+</div>
+<button aria-checked="true" class="toggle-switch flex-shrink-0 mt-0.5 relative inline-flex h-6 w-11 items-center rounded-full bg-primary transition-colors focus:outline-none" onclick="toggleSwitch(this)" role="switch" type="button">
+<span class="inline-block h-4 w-4 transform rounded-full bg-surface-base transition-transform translate-x-6"></span>
+</button>
+</div>
+<!-- Toggle 2 -->
+<div class="flex items-start justify-between p-space-md rounded-lg bg-surface-container-lowest/60 hover:bg-surface-container-low transition-colors duration-150 gap-space-lg">
+<div class="space-y-space-3xs">
+<span class="font-headline-sm text-headline-sm text-text-primary block">Volume anomalies</span>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Flag volume surges greater than 1.75× the 30-day trailing baseline.</p>
+</div>
+<button aria-checked="true" class="toggle-switch flex-shrink-0 mt-0.5 relative inline-flex h-6 w-11 items-center rounded-full bg-primary transition-colors focus:outline-none" onclick="toggleSwitch(this)" role="switch" type="button">
+<span class="inline-block h-4 w-4 transform rounded-full bg-surface-base transition-transform translate-x-6"></span>
+</button>
+</div>
+<!-- Toggle 3 -->
+<div class="flex items-start justify-between p-space-md rounded-lg bg-surface-container-lowest/60 hover:bg-surface-container-low transition-colors duration-150 gap-space-lg">
+<div class="space-y-space-3xs">
+<span class="font-headline-sm text-headline-sm text-text-primary block">News & Announcements</span>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Match verified regulatory filings, 8-K disclosures, and earnings dates.</p>
+</div>
+<button aria-checked="true" class="toggle-switch flex-shrink-0 mt-0.5 relative inline-flex h-6 w-11 items-center rounded-full bg-primary transition-colors focus:outline-none" onclick="toggleSwitch(this)" role="switch" type="button">
+<span class="inline-block h-4 w-4 transform rounded-full bg-surface-base transition-transform translate-x-6"></span>
+</button>
+</div>
+<!-- Toggle 4 -->
+<div class="flex items-start justify-between p-space-md rounded-lg bg-surface-container-lowest/60 hover:bg-surface-container-low transition-colors duration-150 gap-space-lg">
+<div class="space-y-space-3xs">
+<span class="font-headline-sm text-headline-sm text-text-primary block">Earnings & Guidance</span>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Highlight consensus revisions, guidance shifts, and conference call transcripts.</p>
+</div>
+<button aria-checked="true" class="toggle-switch flex-shrink-0 mt-0.5 relative inline-flex h-6 w-11 items-center rounded-full bg-primary transition-colors focus:outline-none" onclick="toggleSwitch(this)" role="switch" type="button">
+<span class="inline-block h-4 w-4 transform rounded-full bg-surface-base transition-transform translate-x-6"></span>
+</button>
+</div>
+<!-- Toggle 5 -->
+<div class="flex items-start justify-between p-space-md rounded-lg bg-surface-container-lowest/60 hover:bg-surface-container-low transition-colors duration-150 gap-space-lg">
+<div class="space-y-space-3xs">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-text-primary block">Corporate actions</span>
+<span class="px-2 py-0.5 text-[10px] uppercase font-semibold tracking-wider rounded bg-surface-container-high text-text-muted">Passive</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">Notify on stock dividends, splits, and share buyback authorization notices.</p>
+</div>
+<button aria-checked="false" class="toggle-switch flex-shrink-0 mt-0.5 relative inline-flex h-6 w-11 items-center rounded-full bg-surface-container-highest transition-colors focus:outline-none" onclick="toggleSwitch(this)" role="switch" type="button">
+<span class="inline-block h-4 w-4 transform rounded-full bg-text-muted transition-transform translate-x-1"></span>
+</button>
+</div>
+</div>
+</section>
+<!-- Section 4: System State & Freshness Diagnostics -->
+<section class="space-y-space-lg">
+<div class="space-y-space-3xs">
+<h2 class="font-headline-md text-headline-md text-text-primary tracking-tight">Diagnostics & Feed Integrity</h2>
+<p class="font-body-md text-body-md text-text-muted">Real-time health verification for the intelligence engine.</p>
+</div>
+<div class="bg-surface-lifted rounded-xl shadow-sm p-space-lg space-y-space-md">
+<!-- Health Banner -->
+<div class="flex items-start sm:items-center justify-between gap-space-md p-space-md bg-surface-elevated rounded-lg">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">verified</span>
+<div class="space-y-space-3xs">
+<span class="font-label-md text-label-md text-text-primary block">All feeds operational</span>
+<span class="font-body-sm text-body-sm text-text-muted">Primary data source: US Consolidated Tape · Last acknowledged sync: 4 hours ago</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-primary bg-primary/10 px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold whitespace-nowrap">Live 99.98%</span>
+</div>
+<!-- Graceful Recovery Card -->
+<div class="p-space-md bg-surface-container-low rounded-lg space-y-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-tier-significant"></span>
+<span class="font-label-sm text-label-sm text-text-primary uppercase tracking-wider">Fault Tolerance Protocol</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">Resilience Mode Active</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">
+                Graceful recovery enabled: If sector data drops, price and volume continue uninterrupted. Feed failovers happen seamlessly in memory without dropping alert streams.
+              </p>
+</div>
+<!-- Mini Telemetry Sparkline -->
+<div class="pt-space-xs flex items-center justify-between text-text-muted">
+<span class="font-body-sm text-body-sm">Trailing Ingestion Latency: <strong class="text-text-primary font-medium">18ms</strong></span>
+<div class="flex items-end gap-1 h-5">
+<span class="w-1 bg-primary-fixed-dim/40 h-2 rounded-full"></span>
+<span class="w-1 bg-primary-fixed-dim/50 h-3 rounded-full"></span>
+<span class="w-1 bg-primary-fixed-dim/60 h-2.5 rounded-full"></span>
+<span class="w-1 bg-primary-fixed-dim/80 h-4 rounded-full"></span>
+<span class="w-1 bg-primary h-5 rounded-full"></span>
+<span class="w-1 bg-primary h-3.5 rounded-full"></span>
+<span class="w-1 bg-primary-fixed-dim/70 h-3 rounded-full"></span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Personal Relevance & Mutes -->
+<div class="lg:col-span-6 space-y-space-3xl">
+<!-- Section 2: Personal relevance thresholds -->
+<section class="space-y-space-lg">
+<div class="space-y-space-3xs">
+<h2 class="font-headline-md text-headline-md text-text-primary tracking-tight">Personal relevance thresholds</h2>
+<p class="font-body-md text-body-md text-text-muted">Calibrate deviation magnitudes before briefing priority shifts.</p>
+</div>
+<div class="bg-surface-lifted rounded-xl shadow-sm p-space-lg space-y-space-lg">
+<!-- Global Default Input -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md p-space-md rounded-lg bg-surface-elevated">
+<div class="space-y-space-3xs">
+<span class="font-label-md text-label-md text-text-primary block">Default threshold</span>
+<span class="font-body-sm text-body-sm text-text-muted">Applied globally to all unassigned instruments</span>
+</div>
+<div class="flex items-center gap-space-xs self-start sm:self-auto">
+<span class="font-data-delta text-data-delta text-text-secondary font-medium">±</span>
+<div class="relative flex items-center">
+<input aria-label="Default threshold percentage" class="w-20 bg-surface-base text-center text-text-primary font-headline-sm text-headline-sm py-1.5 px-3 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" type="text" value="4.0"/>
+</div>
+<span class="font-data-delta text-data-delta text-text-secondary font-medium">%</span>
+</div>
+</div>
+<!-- Editorial Explanatory Callout (Soft Sage Accent) -->
+<div class="p-space-md rounded-lg bg-secondary-container/20 flex gap-space-sm items-start">
+<span class="material-symbols-outlined text-primary text-[20px] flex-shrink-0 mt-0.5">info</span>
+<p class="font-body-sm text-body-sm text-on-secondary-container leading-relaxed">
+<strong class="font-medium text-text-primary">Important note:</strong> Personal thresholds affect your individual visibility, ordering, and briefing highlights only. They do not alter a security's objective significance tier (<span class="text-tier-significant font-medium">Significant</span> / <span class="text-tier-notable font-medium">Notable</span> / <span class="text-tier-normal font-medium">Normal</span>).
+              </p>
+</div>
+<!-- Per-Stock Overrides Table -->
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between px-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-text-muted">Active Ticker Overrides (3)</span>
+<span class="font-label-sm text-label-sm text-text-muted">Variance Basis</span>
+</div>
+<div class="space-y-space-xs">
+<!-- Override Item 1: NVDA -->
+<div class="flex items-center justify-between p-space-md rounded-lg bg-surface-container-lowest/60 hover:bg-surface-elevated transition-colors duration-150">
+<div class="flex items-center gap-space-md min-w-0">
+<span class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center font-headline-sm text-headline-sm text-text-primary flex-shrink-0">N</span>
+<div class="min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-text-primary">NVDA</span>
+<span class="font-data-delta text-data-delta text-primary font-medium">± 5.0%</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-secondary truncate block">High volatility buffer</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs flex-shrink-0">
+<button class="px-space-sm py-1 text-label-sm font-label-sm text-text-secondary hover:text-text-primary rounded hover:bg-surface-container transition-colors" type="button">Edit</button>
+<button class="px-space-sm py-1 text-label-sm font-label-sm text-negative-coral/80 hover:text-negative-coral rounded hover:bg-surface-container transition-colors" type="button">Remove</button>
+</div>
+</div>
+<!-- Override Item 2: TSLA -->
+<div class="flex items-center justify-between p-space-md rounded-lg bg-surface-container-lowest/60 hover:bg-surface-elevated transition-colors duration-150">
+<div class="flex items-center gap-space-md min-w-0">
+<span class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center font-headline-sm text-headline-sm text-text-primary flex-shrink-0">T</span>
+<div class="min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-text-primary">TSLA</span>
+<span class="font-data-delta text-data-delta text-primary font-medium">± 6.5%</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-secondary truncate block">Wide intraday swing adjustment</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs flex-shrink-0">
+<button class="px-space-sm py-1 text-label-sm font-label-sm text-text-secondary hover:text-text-primary rounded hover:bg-surface-container transition-colors" type="button">Edit</button>
+<button class="px-space-sm py-1 text-label-sm font-label-sm text-negative-coral/80 hover:text-negative-coral rounded hover:bg-surface-container transition-colors" type="button">Remove</button>
+</div>
+</div>
+<!-- Override Item 3: AAPL -->
+<div class="flex items-center justify-between p-space-md rounded-lg bg-surface-container-lowest/60 hover:bg-surface-elevated transition-colors duration-150">
+<div class="flex items-center gap-space-md min-w-0">
+<span class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center font-headline-sm text-headline-sm text-text-primary flex-shrink-0">A</span>
+<div class="min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-text-primary">AAPL</span>
+<span class="font-data-delta text-data-delta text-primary font-medium">± 2.5%</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-secondary truncate block">Tighter surveillance</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs flex-shrink-0">
+<button class="px-space-sm py-1 text-label-sm font-label-sm text-text-secondary hover:text-text-primary rounded hover:bg-surface-container transition-colors" type="button">Edit</button>
+<button class="px-space-sm py-1 text-label-sm font-label-sm text-negative-coral/80 hover:text-negative-coral rounded hover:bg-surface-container transition-colors" type="button">Remove</button>
+</div>
+</div>
+</div>
+<button class="w-full mt-space-sm py-space-sm px-space-md rounded-lg bg-surface-container-high/60 hover:bg-surface-container-high text-primary hover:text-text-primary font-label-md text-label-md transition-all flex items-center justify-center gap-space-2xs shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Add custom stock override</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Section 3: Mutes & Quiet Hours -->
+<section class="space-y-space-lg">
+<div class="space-y-space-3xs">
+<h2 class="font-headline-md text-headline-md text-text-primary tracking-tight">Mutes & Quiet Hours</h2>
+<p class="font-body-md text-body-md text-text-muted">Suppress routine announcements without unwatching assets.</p>
+</div>
+<div class="space-y-space-md">
+<!-- Card 1: Muted Categories -->
+<div class="bg-surface-lifted rounded-xl shadow-sm p-space-lg space-y-space-md">
+<div class="space-y-space-3xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-text-muted">notifications_paused</span>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Muted Categories</h3>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary">
+                  Muted categories will not trigger Catch-up briefing cards.
+                </p>
+</div>
+<div class="space-y-space-xs">
+<!-- Mute Category 1 -->
+<div class="flex items-center justify-between p-space-md rounded-lg bg-surface-container-lowest/60 gap-space-md">
+<span class="font-body-md text-body-md text-text-primary truncate">Routine Analyst Price Target Revisions (No Rating Change)</span>
+<button class="font-label-sm text-label-sm text-text-secondary hover:text-text-primary px-3 py-1 bg-surface-container-high rounded-full hover:bg-surface-elevated transition-colors flex-shrink-0" type="button">
+                    Unmute
+                  </button>
+</div>
+<!-- Mute Category 2 -->
+<div class="flex items-center justify-between p-space-md rounded-lg bg-surface-container-lowest/60 gap-space-md">
+<span class="font-body-md text-body-md text-text-primary truncate">Minor Executive Trading Plans (Rule 10b5-1)</span>
+<button class="font-label-sm text-label-sm text-text-secondary hover:text-text-primary px-3 py-1 bg-surface-container-high rounded-full hover:bg-surface-elevated transition-colors flex-shrink-0" type="button">
+                    Unmute
+                  </button>
+</div>
+</div>
+<button class="text-primary hover:text-text-primary font-label-md text-label-md flex items-center gap-space-2xs transition-colors pt-space-xs" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Mute another category</span>
+</button>
+</div>
+<!-- Card 2: Muted Securities -->
+<div class="bg-surface-lifted rounded-xl shadow-sm p-space-lg space-y-space-md">
+<div class="space-y-space-3xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-text-muted">visibility_off</span>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Muted Securities</h3>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary">Temporarily quiet entire instruments from daily digests.</p>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-lowest/60 flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="font-headline-sm text-headline-sm text-text-primary font-medium">INTC</span>
+<span class="font-body-sm text-body-sm text-text-secondary truncate">Intel Corp — Muted for 7 more days (Temporary quiet period)</span>
+</div>
+<button class="font-label-sm text-label-sm text-text-secondary hover:text-text-primary px-3 py-1 bg-surface-container-high rounded-full hover:bg-surface-elevated transition-colors flex-shrink-0" type="button">
+                  Unmute
+                </button>
+</div>
+<button class="text-primary hover:text-text-primary font-label-md text-label-md flex items-center gap-space-2xs transition-colors pt-space-xs" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Mute a security</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Editorial Footer Disclaimer -->
+<footer class="pt-space-xl pb-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-md text-text-muted">
+<div class="flex items-center gap-space-xs font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px] text-text-muted">tune</span>
+<span>Settings apply to desk profile: <strong>Elena Vance (ElenaVance_Desk_US)</strong></span>
+</div>
+<div class="flex items-center gap-space-md font-body-sm text-body-sm">
+<a class="hover:text-text-primary transition-colors" href="#">Export config JSON</a>
+<span>•</span>
+<a class="hover:text-text-primary transition-colors" href="#">Reset to institutional defaults</a>
+</div>
+</footer>
+</div>
+</div>
+<script>
+  function toggleSwitch(btn) {
+    const isChecked = btn.getAttribute('aria-checked') === 'true';
+    const thumb = btn.querySelector('span');
+
+    if (isChecked) {
+      btn.setAttribute('aria-checked', 'false');
+      btn.classList.remove('bg-primary');
+      btn.classList.add('bg-surface-container-highest');
+      thumb.classList.remove('translate-x-6', 'bg-surface-base');
+      thumb.classList.add('translate-x-1', 'bg-text-muted');
+    } else {
+      btn.setAttribute('aria-checked', 'true');
+      btn.classList.remove('bg-surface-container-highest');
+      btn.classList.add('bg-primary');
+      thumb.classList.remove('translate-x-1', 'bg-text-muted');
+      thumb.classList.add('translate-x-6', 'bg-surface-base');
+    }
+  }
+</script></main></div></body></html>

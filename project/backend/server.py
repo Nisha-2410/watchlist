@@ -15,11 +15,15 @@ from backend import store
 from backend import pipeline
 
 ROOT = Path(__file__).resolve().parents[1]
+FRONTEND_DIST = ROOT / "frontend" / "dist"
 
 
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, directory=str(ROOT), **kwargs)
+        # API routing below is unchanged.  Static requests are served by the
+        # compiled React application so the page at :8000 is the same frontend
+        # developed in frontend/, rather than the retired app/app.js shell.
+        super().__init__(*args, directory=str(FRONTEND_DIST), **kwargs)
 
     def api(self, payload, status=HTTPStatus.OK, token=None):
         data = json.dumps(payload).encode()

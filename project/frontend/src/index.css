@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  font-family: Geist, ui-sans-serif, system-ui;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}

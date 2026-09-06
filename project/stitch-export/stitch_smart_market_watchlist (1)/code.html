@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      "colors": {
+        "surface-container-low": "#181c1a",
+        "error-container": "#93000a",
+        "inverse-primary": "#206b43",
+        "tertiary-fixed": "#ffdbd2",
+        "on-secondary-fixed-variant": "#2d4d40",
+        "tier-significant": "#E5A96A",
+        "tier-normal": "#5A6560",
+        "outline": "#89938a",
+        "surface-container-high": "#272b28",
+        "secondary-fixed": "#c6ebd9",
+        "surface-base": "#0B0F0D",
+        "surface-container-highest": "#323633",
+        "on-tertiary-fixed": "#350f06",
+        "on-background": "#e0e3df",
+        "surface-elevated": "#1B2420",
+        "inverse-surface": "#e0e3df",
+        "tertiary-container": "#ffb8a6",
+        "surface-tint": "#8dd6a6",
+        "surface-container-lowest": "#0b0f0d",
+        "primary": "#aaf6c3",
+        "text-muted": "#606D66",
+        "on-secondary-container": "#9dc0b0",
+        "surface": "#101412",
+        "surface-border": "#232E28",
+        "negative-coral": "#E57A77",
+        "outline-variant": "#404941",
+        "surface-lifted": "#131A16",
+        "tier-notable": "#7D9BB2",
+        "background": "#101412",
+        "text-primary": "#F2F5F3",
+        "primary-fixed-dim": "#8dd6a6",
+        "on-surface-variant": "#bfc9bf",
+        "tertiary-fixed-dim": "#fcb6a4",
+        "surface-dim": "#101412",
+        "on-primary-container": "#12603a",
+        "secondary-container": "#2f4f42",
+        "surface-container": "#1c201e",
+        "secondary-fixed-dim": "#abcebe",
+        "on-tertiary-fixed-variant": "#6a392c",
+        "primary-fixed": "#a8f3c0",
+        "on-tertiary-container": "#7a4639",
+        "on-tertiary": "#4f2418",
+        "surface-bright": "#363a38",
+        "on-secondary": "#15362a",
+        "on-secondary-fixed": "#002116",
+        "text-secondary": "#9EABA4",
+        "on-error-container": "#ffdad6",
+        "surface-variant": "#323633",
+        "on-primary-fixed": "#00210f",
+        "inverse-on-surface": "#2d312f",
+        "primary-container": "#8fd9a8",
+        "error": "#ffb4ab",
+        "on-surface": "#e0e3df",
+        "on-primary-fixed-variant": "#00522e",
+        "on-error": "#690005",
+        "on-primary": "#00391e",
+        "tertiary": "#ffded6",
+        "secondary": "#abcebe"
+      },
+      "borderRadius": {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px"
+      },
+      "spacing": {
+        "space-3xs": "0.125rem",
+        "gutter-desktop": "1.5rem",
+        "max-width": "1280px",
+        "space-xs": "0.5rem",
+        "space-3xl": "4rem",
+        "gutter-mobile": "1rem",
+        "space-2xs": "0.25rem",
+        "space-lg": "1.5rem",
+        "space-md": "1rem",
+        "space-2xl": "3rem",
+        "space-sm": "0.75rem",
+        "space-xl": "2rem"
+      },
+      "fontFamily": {
+        "body-sm": ["Geist"],
+        "label-md": ["Geist"],
+        "display-lg": ["Geist"],
+        "headline-lg": ["Geist"],
+        "label-sm": ["Geist"],
+        "data-delta": ["Geist"],
+        "body-md": ["Geist"],
+        "headline-md": ["Geist"],
+        "headline-sm": ["Geist"],
+        "body-lg": ["Geist"],
+        "display-lg-mobile": ["Geist"],
+        "data-metric": ["Geist"]
+      },
+      "fontSize": {
+        "body-sm": ["12px", {"lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+        "label-md": ["13px", {"lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "600"}],
+        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+        "data-delta": ["13px", {"lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+        "body-md": ["14px", {"lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400"}],
+        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "500"}],
+        "headline-sm": ["16px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+        "body-lg": ["16px", {"lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "400"}],
+        "display-lg-mobile": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+        "data-metric": ["28px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "500"}]
+      }
+    }
+  }
+}</script></head><body class="bg-surface-base text-text-primary antialiased selection:bg-secondary-container selection:text-primary"><aside class="fixed left-0 top-0 h-screen w-72 bg-surface-lifted border-r border-surface-border flex flex-col justify-between z-40"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm border-b border-surface-border"><div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center p-space-3xs"><img alt="Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VImrR9Y2EHZztLitBplE6UgiZ9EW5a7Nk8hJixma35f4MLa97ScT5ElE9SLoxzKOFBwxOPWpPpnThywuZ78GHamY-PguA7s24b0Qv0T7gwFYAX8XZtr5tNEn21QbFFAM4Nk9F_SiBjsMFJC1WV92EmUL0w4DR0E1z9uo09i2NFUqQhFD8HzcGkpFtuW9hBVyToNMtuFbpd9-v3qqVOIT5IoVeQuqbVbS7QTZAuEmsxgvC5WfoMJW_gpeg"/></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm font-medium tracking-tight text-text-primary">Smart Market</span><span class="font-label-sm text-label-sm uppercase tracking-wider text-text-muted">Briefing Desk</span></div></div><div class="p-space-md"><div class="px-space-sm py-space-2xs mb-space-xs font-label-sm text-label-sm uppercase tracking-widest text-text-muted">Intelligence</div><nav class="flex flex-col gap-space-2xs" data-active-classes="bg-surface-elevated text-primary border border-surface-border shadow-[inset_0_0_0_1px_rgba(143,217,168,0.25)]"><a class="group flex flex-col px-space-md py-space-sm rounded-xl transition-all hover:bg-surface-elevated hover:text-on-surface" data-path="catch-up" href="#"><div class="flex items-center justify-between"><span class="font-label-md text-label-md font-medium text-text-primary group-hover:text-primary transition-colors">Catch-up</span><span class="w-1.5 h-1.5 rounded-full bg-primary-fixed-dim opacity-70"></span></div><span class="font-body-sm text-body-sm text-text-muted mt-space-3xs">2 meaningful changes</span></a><a aria-current="page" class="group flex flex-col px-space-md py-space-sm rounded-xl transition-all bg-surface-elevated text-primary border border-surface-border shadow-[inset_0_0_0_1px_rgba(143,217,168,0.25)]" data-path="watchlist" href="#"><div class="flex items-center justify-between"><span class="font-label-md text-label-md font-medium text-text-primary group-hover:text-primary transition-colors">Watchlist</span><span class="font-label-sm text-label-sm text-text-muted">20</span></div><span class="font-body-sm text-body-sm text-text-muted mt-space-3xs">20 stocks</span></a><a class="group flex flex-col px-space-md py-space-sm rounded-xl transition-all hover:bg-surface-elevated hover:text-on-surface" data-path="preferences" href="#"><div class="flex items-center justify-between"><span class="font-label-md text-label-md font-medium text-text-primary group-hover:text-primary transition-colors">Preferences</span><span class="font-label-sm text-label-sm text-text-muted">5</span></div><span class="font-body-sm text-body-sm text-text-muted mt-space-3xs">5 active rules</span></a></nav></div></div><div class="p-space-md border-t border-surface-border bg-surface-lifted"><div class="flex items-center gap-space-sm mb-space-sm"><img alt="Elena Vance" class="w-9 h-9 rounded-full object-cover ring-1 ring-surface-border" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHH0gdOfErGFYng-F7PjhI9Z_oBqNAYG_W1klQhow7lhAXJ5UVR4PCmqTYzcW6tqIs64AmuGvCwtSoqeCjaeLNHit6Jq0GbZsgugdtTJTkz5pE46PwN7FdcSstI6DPqTLmfn2TP41-_hJEXzuLaKYlHG5bcYOLpsHISmNt4xRcRtda2nlmAa-hWFMxZxJ-EmE9IectWB2y0oimwF8Fw_YaqIqavgOoPicqUfqq3W2HegDBxrPpiFHc"/><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md font-medium text-text-primary truncate">Elena Vance</span><span class="font-body-sm text-body-sm text-text-muted truncate">Chief Strategist</span></div></div><div class="flex items-center justify-between pt-space-2xs"><button class="font-body-sm text-body-sm text-text-muted hover:text-negative-coral transition-colors flex items-center gap-space-2xs" type="button"><span class="material-symbols-outlined text-[16px]">logout</span>Sign out</button><span class="font-label-sm text-label-sm text-text-muted">v2.4</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-base/80 backdrop-blur-xl border-b border-surface-border z-30 flex items-center justify-between px-space-xl"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-2xs text-text-muted font-body-sm text-body-sm"><span class="w-2 h-2 rounded-full bg-primary-fixed-dim animate-pulse"></span><span>Market Calm</span><span class="mx-space-xs text-outline-variant">•</span><span>Curated Briefing Active</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center bg-surface-lifted border border-surface-border rounded-lg px-space-sm h-[34px] w-64 gap-space-xs"><span class="material-symbols-outlined text-[16px] text-text-muted">search</span><span class="font-body-sm text-body-sm text-text-muted">Search instruments...</span><kbd class="ml-auto font-label-sm text-label-sm text-text-muted bg-surface-container px-1.5 py-0.5 rounded">⌘K</kbd></div><div class="h-4 w-[1px] bg-surface-border"></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VImrR9Y2EHZztLitBplE6UgiZ9EW5a7Nk8hJixma35f4MLa97ScT5ElE9SLoxzKOFBwxOPWpPpnThywuZ78GHamY-PguA7s24b0Qv0T7gwFYAX8XZtr5tNEn21QbFFAM4Nk9F_SiBjsMFJC1WV92EmUL0w4DR0E1z9uo09i2NFUqQhFD8HzcGkpFtuW9hBVyToNMtuFbpd9-v3qqVOIT5IoVeQuqbVbS7QTZAuEmsxgvC5WfoMJW_gpeg"/></div></header><main class="relative pt-16 min-h-screen bg-surface-base"><div class="flex flex-col w-full">
+<div class="w-full max-w-[1280px] mx-auto px-space-lg lg:px-space-xl py-space-xl relative">
+<!-- Top Watchlist Header -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-xl">
+<div class="flex flex-col gap-space-2xs">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm uppercase tracking-widest text-text-muted">
+<span>Curated Coverage</span>
+<span class="text-outline-variant">•</span>
+<span>Tiered Volatility Tracking</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-text-primary tracking-tight">Watchlist</h1>
+<p class="font-body-md text-body-md text-text-secondary">20 securities · Updated 12 min ago</p>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="hidden sm:flex items-center bg-surface-lifted px-space-sm py-1.5 rounded-lg text-text-muted font-body-sm text-body-sm gap-space-xs shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-tier-significant animate-pulse"></span>
+<span>2 Significant anomalies active</span>
+</div>
+<button class="flex items-center gap-space-xs bg-primary-container text-on-primary-container hover:bg-primary font-label-md text-label-md px-space-md py-2 rounded-lg shadow-sm transition-all duration-150 focus:outline-none" id="btn-open-drawer" onclick="toggleAddDrawer(true)" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Add stock</span>
+</button>
+</div>
+</section>
+<!-- Filter & Search Controls Bar -->
+<section class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md mb-space-lg bg-surface-lifted p-space-sm rounded-xl shadow-sm">
+<div class="flex items-center flex-1 max-w-xl bg-surface-base rounded-lg px-space-sm h-[38px] gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-text-muted">search</span>
+<input class="w-full bg-transparent font-body-md text-body-md text-text-primary placeholder:text-text-muted focus:outline-none" id="search-input" oninput="handleSearch(this.value)" placeholder="Search 20 watched securities by name or ticker..." type="text"/>
+<span class="font-label-sm text-label-sm text-text-muted bg-surface-container px-1.5 py-0.5 rounded">ESC</span>
+</div>
+<!-- Tier Filters -->
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1 lg:pb-0 scrollbar-none" id="tier-pills-container">
+<button class="filter-pill active px-3 py-1.5 rounded-full font-label-sm text-label-sm transition-colors bg-surface-elevated text-primary shadow-[inset_0_0_0_1px_rgba(143,217,168,0.25)] flex items-center gap-1.5" id="filter-all" onclick="setFilter('ALL')">
+<span>All</span>
+<span class="opacity-75 font-body-sm">(20)</span>
+</button>
+<button class="filter-pill px-3 py-1.5 rounded-full font-label-sm text-label-sm transition-colors text-text-secondary hover:text-text-primary hover:bg-surface-container-high flex items-center gap-1.5" id="filter-sig" onclick="setFilter('SIGNIFICANT')">
+<span class="w-1.5 h-1.5 rounded-full bg-tier-significant"></span>
+<span>Significant</span>
+<span class="text-text-muted font-body-sm">(2)</span>
+</button>
+<button class="filter-pill px-3 py-1.5 rounded-full font-label-sm text-label-sm transition-colors text-text-secondary hover:text-text-primary hover:bg-surface-container-high flex items-center gap-1.5" id="filter-not" onclick="setFilter('NOTABLE')">
+<span class="w-1.5 h-1.5 rounded-full bg-tier-notable"></span>
+<span>Notable</span>
+<span class="text-text-muted font-body-sm">(3)</span>
+</button>
+<button class="filter-pill px-3 py-1.5 rounded-full font-label-sm text-label-sm transition-colors text-text-secondary hover:text-text-primary hover:bg-surface-container-high flex items-center gap-1.5" id="filter-norm" onclick="setFilter('NORMAL')">
+<span class="w-1.5 h-1.5 rounded-full bg-tier-normal"></span>
+<span>Normal</span>
+<span class="text-text-muted font-body-sm">(15)</span>
+</button>
+</div>
+</section>
+<!-- Watchlist Table Canvas -->
+<div class="w-full flex flex-col gap-space-xs" id="stock-list-container">
+<!-- NVDA -->
+<div class="stock-row group relative flex flex-col md:flex-row md:items-center justify-between p-space-md rounded-xl bg-surface-lifted hover:bg-surface-elevated transition-all duration-150 shadow-[inset_0_0_0_1px_rgba(229,169,106,0.22)]" data-tier="SIGNIFICANT">
+<div class="flex items-center gap-space-md min-w-[240px]">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center font-label-md text-label-md text-tier-significant">
+            NV
+          </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-text-primary">NVDA</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-text-secondary">Permanent</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-secondary truncate">NVIDIA Corp</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between md:justify-end gap-x-space-lg gap-y-space-xs mt-3 md:mt-0 flex-1">
+<!-- Price & Direction -->
+<div class="flex flex-col items-start md:items-end min-w-[90px]">
+<span class="font-data-delta text-data-delta text-negative-coral flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[15px]">arrow_downward</span>
+              4.8%
+            </span>
+<span class="font-body-sm text-body-sm text-text-muted">$879.40</span>
+</div>
+<!-- Tier Badge -->
+<div class="min-w-[105px]">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-tier-significant/10 text-tier-significant">
+<span class="w-1.5 h-1.5 rounded-full bg-tier-significant"></span>
+              SIGNIFICANT
+            </span>
+</div>
+<!-- Freshness -->
+<div class="min-w-[80px]">
+<span class="font-body-sm text-body-sm text-text-secondary flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-fixed-dim"></span>
+              Real-time
+            </span>
+</div>
+<!-- Signal Count -->
+<div class="min-w-[80px]">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-surface-container text-text-primary">3 signals</span>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-space-xs">
+<a class="font-label-md text-label-md text-primary-fixed-dim hover:text-primary transition-colors flex items-center gap-0.5" href="#">
+              View <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-text-secondary hover:text-text-primary transition-colors" onclick="openMenu(event, 'NVDA')" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- TSLA -->
+<div class="stock-row group relative flex flex-col md:flex-row md:items-center justify-between p-space-md rounded-xl bg-surface-lifted hover:bg-surface-elevated transition-all duration-150 shadow-[inset_0_0_0_1px_rgba(229,169,106,0.22)]" data-tier="SIGNIFICANT">
+<div class="flex items-center gap-space-md min-w-[240px]">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center font-label-md text-label-md text-tier-significant">
+            TS
+          </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-text-primary">TSLA</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-text-secondary">Permanent</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-secondary truncate">Tesla Inc</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between md:justify-end gap-x-space-lg gap-y-space-xs mt-3 md:mt-0 flex-1">
+<div class="flex flex-col items-start md:items-end min-w-[90px]">
+<span class="font-data-delta text-data-delta text-primary-fixed-dim flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[15px]">arrow_upward</span>
+              6.2%
+            </span>
+<span class="font-body-sm text-body-sm text-text-muted">$177.30</span>
+</div>
+<div class="min-w-[105px]">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-tier-significant/10 text-tier-significant">
+<span class="w-1.5 h-1.5 rounded-full bg-tier-significant"></span>
+              SIGNIFICANT
+            </span>
+</div>
+<div class="min-w-[80px]">
+<span class="font-body-sm text-body-sm text-text-secondary flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-fixed-dim"></span>
+              Real-time
+            </span>
+</div>
+<div class="min-w-[80px]">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-surface-container text-text-primary">2 signals</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<a class="font-label-md text-label-md text-primary-fixed-dim hover:text-primary transition-colors flex items-center gap-0.5" href="#">
+              View <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-text-secondary hover:text-text-primary transition-colors" onclick="openMenu(event, 'TSLA')" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- AAPL -->
+<div class="stock-row group relative flex flex-col md:flex-row md:items-center justify-between p-space-md rounded-xl bg-surface-lifted hover:bg-surface-elevated transition-all duration-150 shadow-[inset_0_0_0_1px_rgba(125,155,178,0.2)]" data-tier="NOTABLE">
+<div class="flex items-center gap-space-md min-w-[240px]">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center font-label-md text-label-md text-tier-notable">
+            AP
+          </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-text-primary">AAPL</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-text-secondary">Permanent</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-secondary truncate">Apple Inc</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between md:justify-end gap-x-space-lg gap-y-space-xs mt-3 md:mt-0 flex-1">
+<div class="flex flex-col items-start md:items-end min-w-[90px]">
+<span class="font-data-delta text-data-delta text-negative-coral flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[15px]">arrow_downward</span>
+              1.4%
+            </span>
+<span class="font-body-sm text-body-sm text-text-muted">$172.98</span>
+</div>
+<div class="min-w-[105px]">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-tier-notable/10 text-tier-notable">
+<span class="w-1.5 h-1.5 rounded-full bg-tier-notable"></span>
+              NOTABLE
+            </span>
+</div>
+<div class="min-w-[80px]">
+<span class="font-body-sm text-body-sm text-text-muted flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+              Fresh
+            </span>
+</div>
+<div class="min-w-[80px]">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-surface-container text-text-primary">2 signals</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<a class="font-label-md text-label-md text-primary-fixed-dim hover:text-primary transition-colors flex items-center gap-0.5" href="#">
+              View <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-text-secondary hover:text-text-primary transition-colors" onclick="openMenu(event, 'AAPL')" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- MSFT -->
+<div class="stock-row group relative flex flex-col md:flex-row md:items-center justify-between p-space-md rounded-xl bg-surface-lifted hover:bg-surface-elevated transition-all duration-150 shadow-[inset_0_0_0_1px_rgba(125,155,178,0.2)]" data-tier="NOTABLE">
+<div class="flex items-center gap-space-md min-w-[240px]">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center font-label-md text-label-md text-tier-notable">
+            MS
+          </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-text-primary">MSFT</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-text-secondary">Permanent</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-secondary truncate">Microsoft Corp</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between md:justify-end gap-x-space-lg gap-y-space-xs mt-3 md:mt-0 flex-1">
+<div class="flex flex-col items-start md:items-end min-w-[90px]">
+<span class="font-data-delta text-data-delta text-primary-fixed-dim flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[15px]">arrow_upward</span>
+              1.9%
+            </span>
+<span class="font-body-sm text-body-sm text-text-muted">$424.12</span>
+</div>
+<div class="min-w-[105px]">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-tier-notable/10 text-tier-notable">
+<span class="w-1.5 h-1.5 rounded-full bg-tier-notable"></span>
+              NOTABLE
+            </span>
+</div>
+<div class="min-w-[80px]">
+<span class="font-body-sm text-body-sm text-text-muted flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+              Fresh
+            </span>
+</div>
+<div class="min-w-[80px]">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-surface-container text-text-primary">2 signals</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<a class="font-label-md text-label-md text-primary-fixed-dim hover:text-primary transition-colors flex items-center gap-0.5" href="#">
+              View <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-text-secondary hover:text-text-primary transition-colors" onclick="openMenu(event, 'MSFT')" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- AMD (Temporary Watch) -->
+<div class="stock-row group relative flex flex-col md:flex-row md:items-center justify-between p-space-md rounded-xl bg-surface-lifted hover:bg-surface-elevated transition-all duration-150 shadow-[inset_0_0_0_1px_rgba(125,155,178,0.2)]" data-tier="NOTABLE">
+<div class="flex items-center gap-space-md min-w-[240px]">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center font-label-md text-label-md text-tier-notable">
+            AM
+          </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-text-primary">AMD</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-tier-significant/10 text-tier-significant flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">schedule</span>
+                TEMP · 5 days left
+              </span>
+</div>
+<span class="font-body-sm text-body-sm text-text-secondary truncate">Advanced Micro Devices</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between md:justify-end gap-x-space-lg gap-y-space-xs mt-3 md:mt-0 flex-1">
+<div class="flex flex-col items-start md:items-end min-w-[90px]">
+<span class="font-data-delta text-data-delta text-negative-coral flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[15px]">arrow_downward</span>
+              1.8%
+            </span>
+<span class="font-body-sm text-body-sm text-text-muted">$164.20</span>
+</div>
+<div class="min-w-[105px]">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-tier-notable/10 text-tier-notable">
+<span class="w-1.5 h-1.5 rounded-full bg-tier-notable"></span>
+              NOTABLE
+            </span>
+</div>
+<div class="min-w-[80px]">
+<span class="font-body-sm text-body-sm text-text-muted flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+              Delayed 15m
+            </span>
+</div>
+<div class="min-w-[80px]">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-surface-container text-text-primary">1 signal</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<a class="font-label-md text-label-md text-primary-fixed-dim hover:text-primary transition-colors flex items-center gap-0.5" href="#">
+              View <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-text-secondary hover:text-text-primary transition-colors" onclick="openMenu(event, 'AMD')" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- AMZN (Quiet Normal) -->
+<div class="stock-row group relative flex flex-col md:flex-row md:items-center justify-between p-space-md rounded-xl bg-surface-lifted/70 hover:bg-surface-lifted transition-all duration-150" data-tier="NORMAL">
+<div class="flex items-center gap-space-md min-w-[240px]">
+<div class="w-9 h-9 rounded-lg bg-surface-container/60 flex items-center justify-center font-label-md text-label-md text-text-muted">
+            AZ
+          </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-text-primary">AMZN</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-text-muted">Permanent</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted truncate">Amazon.com Inc</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between md:justify-end gap-x-space-lg gap-y-space-xs mt-3 md:mt-0 flex-1">
+<div class="flex flex-col items-start md:items-end min-w-[90px]">
+<span class="font-data-delta text-data-delta text-text-secondary flex items-center gap-0.5">
+              +0.6%
+            </span>
+<span class="font-body-sm text-body-sm text-text-muted">$182.15</span>
+</div>
+<div class="min-w-[105px]">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-tier-normal">
+              NORMAL
+            </span>
+</div>
+<div class="min-w-[80px]">
+<span class="font-body-sm text-body-sm text-text-muted flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+              Real-time
+            </span>
+</div>
+<div class="min-w-[80px]">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-surface-container/60 text-text-muted">0 signals</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<a class="font-label-md text-label-md text-text-secondary hover:text-text-primary transition-colors flex items-center gap-0.5" href="#">
+              View <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-text-muted hover:text-text-primary transition-colors" onclick="openMenu(event, 'AMZN')" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- GOOGL (Quiet Normal) -->
+<div class="stock-row group relative flex flex-col md:flex-row md:items-center justify-between p-space-md rounded-xl bg-surface-lifted/70 hover:bg-surface-lifted transition-all duration-150" data-tier="NORMAL">
+<div class="flex items-center gap-space-md min-w-[240px]">
+<div class="w-9 h-9 rounded-lg bg-surface-container/60 flex items-center justify-center font-label-md text-label-md text-text-muted">
+            GG
+          </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-text-primary">GOOGL</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-text-muted">Permanent</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted truncate">Alphabet Inc</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between md:justify-end gap-x-space-lg gap-y-space-xs mt-3 md:mt-0 flex-1">
+<div class="flex flex-col items-start md:items-end min-w-[90px]">
+<span class="font-data-delta text-data-delta text-text-secondary flex items-center gap-0.5">
+              +0.2%
+            </span>
+<span class="font-body-sm text-body-sm text-text-muted">$176.40</span>
+</div>
+<div class="min-w-[105px]">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-tier-normal">
+              NORMAL
+            </span>
+</div>
+<div class="min-w-[80px]">
+<span class="font-body-sm text-body-sm text-text-muted flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+              Real-time
+            </span>
+</div>
+<div class="min-w-[80px]">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-surface-container/60 text-text-muted">0 signals</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<a class="font-label-md text-label-md text-text-secondary hover:text-text-primary transition-colors flex items-center gap-0.5" href="#">
+              View <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-text-muted hover:text-text-primary transition-colors" onclick="openMenu(event, 'GOOGL')" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- META (Quiet Normal) -->
+<div class="stock-row group relative flex flex-col md:flex-row md:items-center justify-between p-space-md rounded-xl bg-surface-lifted/70 hover:bg-surface-lifted transition-all duration-150" data-tier="NORMAL">
+<div class="flex items-center gap-space-md min-w-[240px]">
+<div class="w-9 h-9 rounded-lg bg-surface-container/60 flex items-center justify-center font-label-md text-label-md text-text-muted">
+            ME
+          </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-text-primary">META</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-text-muted">Permanent</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted truncate">Meta Platforms Inc</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between md:justify-end gap-x-space-lg gap-y-space-xs mt-3 md:mt-0 flex-1">
+<div class="flex flex-col items-start md:items-end min-w-[90px]">
+<span class="font-data-delta text-data-delta text-text-secondary flex items-center gap-0.5">
+              −0.3%
+            </span>
+<span class="font-body-sm text-body-sm text-text-muted">$498.10</span>
+</div>
+<div class="min-w-[105px]">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-tier-normal">
+              NORMAL
+            </span>
+</div>
+<div class="min-w-[80px]">
+<span class="font-body-sm text-body-sm text-text-muted flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+              Real-time
+            </span>
+</div>
+<div class="min-w-[80px]">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-surface-container/60 text-text-muted">0 signals</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<a class="font-label-md text-label-md text-text-secondary hover:text-text-primary transition-colors flex items-center gap-0.5" href="#">
+              View <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-text-muted hover:text-text-primary transition-colors" onclick="openMenu(event, 'META')" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- AVGO (Quiet Normal) -->
+<div class="stock-row group relative flex flex-col md:flex-row md:items-center justify-between p-space-md rounded-xl bg-surface-lifted/70 hover:bg-surface-lifted transition-all duration-150" data-tier="NORMAL">
+<div class="flex items-center gap-space-md min-w-[240px]">
+<div class="w-9 h-9 rounded-lg bg-surface-container/60 flex items-center justify-center font-label-md text-label-md text-text-muted">
+            AV
+          </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-text-primary">AVGO</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-text-muted">Permanent</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted truncate">Broadcom Inc</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between md:justify-end gap-x-space-lg gap-y-space-xs mt-3 md:mt-0 flex-1">
+<div class="flex flex-col items-start md:items-end min-w-[90px]">
+<span class="font-data-delta text-data-delta text-text-secondary flex items-center gap-0.5">
+              −0.1%
+            </span>
+<span class="font-body-sm text-body-sm text-text-muted">$1,390.50</span>
+</div>
+<div class="min-w-[105px]">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-tier-normal">
+              NORMAL
+            </span>
+</div>
+<div class="min-w-[80px]">
+<span class="font-body-sm text-body-sm text-text-muted flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+              Real-time
+            </span>
+</div>
+<div class="min-w-[80px]">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-surface-container/60 text-text-muted">0 signals</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<a class="font-label-md text-label-md text-text-secondary hover:text-text-primary transition-colors flex items-center gap-0.5" href="#">
+              View <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-text-muted hover:text-text-primary transition-colors" onclick="openMenu(event, 'AVGO')" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- QCOM (Quiet Normal) -->
+<div class="stock-row group relative flex flex-col md:flex-row md:items-center justify-between p-space-md rounded-xl bg-surface-lifted/70 hover:bg-surface-lifted transition-all duration-150" data-tier="NORMAL">
+<div class="flex items-center gap-space-md min-w-[240px]">
+<div class="w-9 h-9 rounded-lg bg-surface-container/60 flex items-center justify-center font-label-md text-label-md text-text-muted">
+            QC
+          </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-text-primary">QCOM</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-text-muted">Permanent</span>
+</div>
+<span class="font-body-sm text-body-sm text-text-muted truncate">Qualcomm Inc</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between md:justify-end gap-x-space-lg gap-y-space-xs mt-3 md:mt-0 flex-1">
+<div class="flex flex-col items-start md:items-end min-w-[90px]">
+<span class="font-data-delta text-data-delta text-text-secondary flex items-center gap-0.5">
+              +0.4%
+            </span>
+<span class="font-body-sm text-body-sm text-text-muted">$171.20</span>
+</div>
+<div class="min-w-[105px]">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-tier-normal">
+              NORMAL
+            </span>
+</div>
+<div class="min-w-[80px]">
+<span class="font-body-sm text-body-sm text-text-muted flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+              Real-time
+            </span>
+</div>
+<div class="min-w-[80px]">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-surface-container/60 text-text-muted">0 signals</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<a class="font-label-md text-label-md text-text-secondary hover:text-text-primary transition-colors flex items-center gap-0.5" href="#">
+              View <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<button class="p-1.5 rounded-md hover:bg-surface-container-high text-text-muted hover:text-text-primary transition-colors" onclick="openMenu(event, 'QCOM')" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Context Menu Dropdown (Floating) -->
+<div class="hidden fixed z-50 w-56 bg-surface-elevated rounded-xl shadow-xl p-1.5 flex-col gap-0.5 text-text-secondary font-label-md text-label-md" id="context-menu">
+<div class="px-3 py-1.5 font-label-sm text-label-sm uppercase tracking-wider text-text-muted border-b border-surface-border mb-1" id="menu-stock-ticker">Security Actions</div>
+<button class="w-full text-left px-3 py-2 rounded-lg hover:bg-surface-container hover:text-text-primary flex items-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-muted">visibility</span>
+<span>Open security overview</span>
+</button>
+<button class="w-full text-left px-3 py-2 rounded-lg hover:bg-surface-container hover:text-text-primary flex items-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-muted">tune</span>
+<span>Personalize threshold</span>
+</button>
+<button class="w-full text-left px-3 py-2 rounded-lg hover:bg-surface-container hover:text-text-primary flex items-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-muted">notifications_off</span>
+<span>Mute signals (48h)</span>
+</button>
+<div class="h-[1px] bg-surface-border my-1"></div>
+<button class="w-full text-left px-3 py-2 rounded-lg hover:bg-surface-container hover:text-text-primary flex items-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-muted">bookmark_remove</span>
+<span>Remove from watchlist</span>
+</button>
+</div>
+<!-- Slide-out Drawer: Add to Watchlist -->
+<div class="fixed inset-0 bg-surface-base/70 backdrop-blur-sm z-40 transition-opacity duration-300 opacity-100 pointer-events-auto" id="drawer-backdrop" onclick="toggleAddDrawer(false)"></div>
+<aside class="fixed top-0 right-0 h-screen w-full max-w-md bg-surface-lifted shadow-2xl z-50 flex flex-col justify-between transition-transform duration-300 transform translate-x-0" id="add-stock-drawer">
+<!-- Drawer Header -->
+<div class="p-space-lg border-b border-surface-border flex items-center justify-between bg-surface-lifted">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-text-primary">Add to Watchlist</span>
+<span class="font-body-sm text-body-sm text-text-secondary">Configure dynamic tracking for asset</span>
+</div>
+<button class="p-2 rounded-lg hover:bg-surface-container-high text-text-muted hover:text-text-primary transition-colors" onclick="toggleAddDrawer(false)" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Drawer Content -->
+<div class="p-space-lg flex-1 overflow-y-auto flex flex-col gap-space-lg">
+<!-- Search Field inside Drawer -->
+<div class="flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-text-muted">Security Instrument</label>
+<div class="flex items-center bg-surface-base rounded-lg px-space-sm h-[40px] gap-space-xs shadow-inner">
+<span class="material-symbols-outlined text-[18px] text-text-muted">search</span>
+<input class="w-full bg-transparent font-body-md text-body-md text-text-primary focus:outline-none" type="text" value="ARM"/>
+<span class="material-symbols-outlined text-[16px] text-primary-fixed-dim">check_circle</span>
+</div>
+</div>
+<!-- Selected Security Card Confirmation -->
+<div class="p-space-md rounded-xl bg-surface-elevated flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center font-headline-sm text-headline-sm text-primary">
+              AR
+            </div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-text-primary">ARM</span>
+<span class="font-body-sm text-body-sm text-text-secondary">Arm Holdings plc · NASDAQ</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-body-lg text-body-lg font-medium text-text-primary">$124.80</span>
+<span class="font-label-sm text-label-sm text-primary-fixed-dim">+2.1% today</span>
+</div>
+</div>
+<!-- Watch Type Segmented Control -->
+<div class="flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-text-muted">Watch Horizon</label>
+<div class="grid grid-cols-2 p-1 bg-surface-base rounded-lg gap-1 shadow-inner" id="segmented-watch-type">
+<button class="py-2 px-3 rounded-md font-label-md text-label-md transition-all text-text-muted hover:text-text-primary" id="watch-btn-perm" onclick="setWatchType('permanent')" type="button">
+              Permanent
+            </button>
+<button class="py-2 px-3 rounded-md font-label-md text-label-md transition-all bg-surface-container-high text-primary font-medium shadow-sm" id="watch-btn-temp" onclick="setWatchType('temporary')" type="button">
+              Temporary
+            </button>
+</div>
+<!-- Temporary duration pill selector -->
+<div class="flex flex-col gap-space-xs mt-space-xs p-space-sm bg-surface-base rounded-lg" id="temp-picker-block">
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-text-secondary">Automatic expiration window</span>
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-tier-significant/15 text-tier-significant">TEMP · 14 days</span>
+</div>
+<div class="flex gap-2 pt-1">
+<button class="flex-1 py-1 rounded bg-surface-lifted text-text-muted hover:text-text-primary font-label-sm text-label-sm" type="button">7 days</button>
+<button class="flex-1 py-1 rounded bg-surface-elevated text-primary font-label-sm text-label-sm shadow-[inset_0_0_0_1px_rgba(143,217,168,0.3)]" type="button">14 days</button>
+<button class="flex-1 py-1 rounded bg-surface-lifted text-text-muted hover:text-text-primary font-label-sm text-label-sm" type="button">30 days</button>
+</div>
+</div>
+</div>
+<!-- Personal Relevance Threshold -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-text-muted">Personal Relevance Threshold</label>
+<span class="font-body-sm text-body-sm text-text-muted">Optional</span>
+</div>
+<div class="flex items-center justify-between p-space-md bg-surface-base rounded-xl">
+<span class="font-body-md text-body-md text-text-secondary">Alert me when move exceeds</span>
+<div class="flex items-center gap-1 bg-surface-container px-2.5 py-1 rounded-lg">
+<span class="font-body-sm text-body-sm text-text-muted">±</span>
+<input class="w-8 text-center bg-transparent font-label-md text-label-md text-text-primary focus:outline-none" type="text" value="3.5"/>
+<span class="font-label-md text-label-md text-text-muted">%</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted leading-relaxed px-1">
+            Affects your personal visibility and sorting only — does not change this security's objective significance tier.
+          </p>
+</div>
+<!-- Confirmation Note -->
+<div class="p-space-md bg-surface-container rounded-xl flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-primary flex-shrink-0 mt-0.5">info</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-text-primary font-medium">Algorithmic Baseline</span>
+<span class="font-body-sm text-body-sm text-text-secondary mt-0.5">Significance detection will begin from this point forward. Historical anomalous baseline is pre-calibrated.</span>
+</div>
+</div>
+</div>
+<!-- Drawer Footer -->
+<div class="p-space-lg border-t border-surface-border bg-surface-lifted flex flex-col gap-space-xs">
+<button class="w-full py-2.5 rounded-lg bg-primary-container text-on-primary-container hover:bg-primary font-label-md text-label-md font-medium transition-colors shadow-sm flex items-center justify-center gap-1.5" onclick="toggleAddDrawer(false)" type="button">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Add ARM to Watchlist</span>
+</button>
+<button class="w-full py-2 rounded-lg text-text-secondary hover:text-text-primary font-body-sm text-body-sm transition-colors text-center" onclick="toggleAddDrawer(false)" type="button">
+          Cancel
+        </button>
+</div>
+</aside>
+</div>
+</div>
+<script>
+  function toggleAddDrawer(show) {
+    const drawer = document.getElementById('add-stock-drawer');
+    const backdrop = document.getElementById('drawer-backdrop');
+    if (show) {
+      drawer.classList.remove('translate-x-full');
+      drawer.classList.add('translate-x-0');
+      backdrop.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
+      backdrop.classList.add('opacity-100', 'pointer-events-auto');
+    } else {
+      drawer.classList.add('translate-x-full');
+      drawer.classList.remove('translate-x-0');
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+      backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+    }
+  }
+
+  function setWatchType(type) {
+    const btnPerm = document.getElementById('watch-btn-perm');
+    const btnTemp = document.getElementById('watch-btn-temp');
+    const tempPicker = document.getElementById('temp-picker-block');
+
+    if (type === 'permanent') {
+      btnPerm.className = 'py-2 px-3 rounded-md font-label-md text-label-md transition-all bg-surface-container-high text-primary font-medium shadow-sm';
+      btnTemp.className = 'py-2 px-3 rounded-md font-label-md text-label-md transition-all text-text-muted hover:text-text-primary';
+      tempPicker.classList.add('hidden');
+    } else {
+      btnTemp.className = 'py-2 px-3 rounded-md font-label-md text-label-md transition-all bg-surface-container-high text-primary font-medium shadow-sm';
+      btnPerm.className = 'py-2 px-3 rounded-md font-label-md text-label-md transition-all text-text-muted hover:text-text-primary';
+      tempPicker.classList.remove('hidden');
+    }
+  }
+
+  function setFilter(tier) {
+    const pills = document.querySelectorAll('.filter-pill');
+    pills.forEach(p => {
+      p.className = 'filter-pill px-3 py-1.5 rounded-full font-label-sm text-label-sm transition-colors text-text-secondary hover:text-text-primary hover:bg-surface-container-high flex items-center gap-1.5';
+    });
+
+    const activeMap = {
+      'ALL': 'filter-all',
+      'SIGNIFICANT': 'filter-sig',
+      'NOTABLE': 'filter-not',
+      'NORMAL': 'filter-norm'
+    };
+
+    const activeBtn = document.getElementById(activeMap[tier]);
+    if (activeBtn) {
+      activeBtn.className = 'filter-pill active px-3 py-1.5 rounded-full font-label-sm text-label-sm transition-colors bg-surface-elevated text-primary shadow-[inset_0_0_0_1px_rgba(143,217,168,0.25)] flex items-center gap-1.5';
+    }
+
+    const rows = document.querySelectorAll('.stock-row');
+    rows.forEach(r => {
+      if (tier === 'ALL' || r.getAttribute('data-tier') === tier) {
+        r.style.display = 'flex';
+      } else {
+        r.style.display = 'none';
+      }
+    });
+  }
+
+  function handleSearch(query) {
+    const rows = document.querySelectorAll('.stock-row');
+    const term = query.toLowerCase().trim();
+    rows.forEach(row => {
+      const text = row.innerText.toLowerCase();
+      if (!term || text.includes(term)) {
+        row.style.display = 'flex';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+
+  function openMenu(event, ticker) {
+    event.stopPropagation();
+    const menu = document.getElementById('context-menu');
+    const title = document.getElementById('menu-stock-ticker');
+    title.innerText = ticker + ' Actions';
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    menu.style.top = (rect.bottom + 6) + 'px';
+    menu.style.left = Math.min(rect.left - 160, window.innerWidth - 240) + 'px';
+    menu.classList.remove('hidden');
+  }
+
+  document.addEventListener('click', (e) => {
+    const menu = document.getElementById('context-menu');
+    if (menu && !menu.contains(e.target)) {
+      menu.classList.add('hidden');
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      toggleAddDrawer(false);
+      const search = document.getElementById('search-input');
+      if (search) {
+        search.value = '';
+        handleSearch('');
+      }
+    }
+  });
+</script></main></div></body></html>
